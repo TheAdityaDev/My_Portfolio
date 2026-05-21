@@ -1,3 +1,4 @@
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]); 
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -9,26 +10,34 @@ const path = require("path");
 
 const app = express();
 
+// PORT define
+const PORT = process.env.PORT || 5000;
+
+// middleware
 app.use(cors());
 app.use(express.json());
-
-// API routes FIRST
-app.use("/api/projects", projectRoutes);
-app.use("/api/contact", contactRoutes);
 
 // static frontend
 app.use(express.static(path.join(__dirname, "../public")));
 
-// frontend routes LAST
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
-});
+// API routes
+app.use("/api/projects", projectRoutes);
+app.use("/api/contact", contactRoutes);
 
 // test route
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.json({ message: "API Running 🚀" });
 });
 
+// frontend catch-all route LAST
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+// DB connect
 connectDB();
 
-module.exports = app;
+// server start
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
