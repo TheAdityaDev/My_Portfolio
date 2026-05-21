@@ -14,10 +14,6 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api/projects', projectRoutes);
-app.use('/api/contact', contactRoutes);
-
 app.use(express.static(
   path.join(__dirname, "../build")
 ));
@@ -27,6 +23,10 @@ app.get("*", (req, res) => {
     path.join(__dirname, "../dist/index.html")
   );
 });
+// Routes
+app.use('/api/projects', projectRoutes);
+app.use('/api/contact', contactRoutes);
+
 
 app.listen(PORT, () => {
   connectDB();
