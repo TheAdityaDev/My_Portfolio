@@ -5,8 +5,15 @@ require("dotenv").config();
 const projectRoutes = require("./routes/projectRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const connectDB = require("./config/db");
-
+const path = require("path");
 const app = express();
+
+app.use(express.static(path.join(__dirname, "../dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
+
 
 app.use(cors());
 app.use(express.json());
