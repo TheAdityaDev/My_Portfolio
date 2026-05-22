@@ -22,9 +22,8 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  connectDB();
-}, next());
+
+connectDB();
 
 // frontend static files - serve from frontend/dist
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -39,11 +38,13 @@ app.get("/api", (req, res) => {
 });
 
 // React Router Fix 🔥
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
 });
 
-// DB connect
+// Server Start
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
 
-// server start
 module.exports = app;

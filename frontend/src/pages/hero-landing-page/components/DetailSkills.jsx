@@ -1070,7 +1070,7 @@ const BRAND_ICONS = {
             </use>{" "}
             <use
               fill="#000000"
-              fill-opacity="1"
+              fillOpacity="1"
               filter="url(#filter-2)"
               xlink:href="#path-1"
             >
@@ -1090,7 +1090,7 @@ const BRAND_ICONS = {
             </use>{" "}
             <use
               fill="#000000"
-              fill-opacity="1"
+              fillOpacity="1"
               filter="url(#filter-4)"
               xlink:href="#path-3"
             >
