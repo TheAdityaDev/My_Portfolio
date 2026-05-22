@@ -4,12 +4,16 @@ import Header from "../../components/ui/Header";
 import ScrollProgressIndicator from "../../components/ui/ScrollProgressIndicator";
 import Icon from "../../components/AppIcon";
 
-import HeroSection from "./components/HeroSection";
-import PortfolioPreview from "./components/PortfolioPreview";
-import SkillsBadges from "./components/SkillsBadges";
-import TestimonialsSection from "./components/TestimonialsSection";
-import LoadingAnimation from "./components/LoadingAnimation";
-import DetailSkills from "./components/DetailSkills";
+import { lazy, Suspense } from "react";
+
+const HeroSection = lazy(() => import("./components/HeroSection"));
+const PortfolioPreview = lazy(() => import("./components/PortfolioPreview"));
+const SkillsBadges = lazy(() => import("./components/SkillsBadges"));
+const TestimonialsSection = lazy(
+  () => import("./components/TestimonialsSection"),
+);
+const LoadingAnimation = lazy(() => import("./components/LoadingAnimation"));
+const DetailSkills = lazy(() => import("./components/DetailSkills"));
 
 const HeroLandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +23,7 @@ const HeroLandingPage = () => {
     portfolio: false,
     skills: false,
     testimonials: false,
-    detailSkills:false,
+    detailSkills: false,
   });
 
   const heroRef = useRef(null);
@@ -42,26 +46,50 @@ const HeroLandingPage = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setScrollY(window.scrollY);
-          
+
           // Check each section's visibility
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.target === heroRef.current) {
-                setIsVisible(prev => ({ ...prev, hero: entry.isIntersecting }));
-              } else if (entry.target === portfolioRef.current) {
-                setIsVisible(prev => ({ ...prev, portfolio: entry.isIntersecting }));
-              } else if (entry.target === skillsRef.current) {
-                setIsVisible(prev => ({ ...prev, skills: entry.isIntersecting }));
-              } else if (entry.target === testimonialsRef.current) {
-                setIsVisible(prev => ({ ...prev, testimonials: entry.isIntersecting }));
-              } else if (entry.target === detailSkillsRef.current) {
-                setIsVisible(prev => ({ ...prev, detailSkills: entry.isIntersecting }));
-              }
-            });
-          }, { threshold: 0.2 });
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.target === heroRef.current) {
+                  setIsVisible((prev) => ({
+                    ...prev,
+                    hero: entry.isIntersecting,
+                  }));
+                } else if (entry.target === portfolioRef.current) {
+                  setIsVisible((prev) => ({
+                    ...prev,
+                    portfolio: entry.isIntersecting,
+                  }));
+                } else if (entry.target === skillsRef.current) {
+                  setIsVisible((prev) => ({
+                    ...prev,
+                    skills: entry.isIntersecting,
+                  }));
+                } else if (entry.target === testimonialsRef.current) {
+                  setIsVisible((prev) => ({
+                    ...prev,
+                    testimonials: entry.isIntersecting,
+                  }));
+                } else if (entry.target === detailSkillsRef.current) {
+                  setIsVisible((prev) => ({
+                    ...prev,
+                    detailSkills: entry.isIntersecting,
+                  }));
+                }
+              });
+            },
+            { threshold: 0.2 },
+          );
 
           // Observe all sections
-          [heroRef, portfolioRef, skillsRef, testimonialsRef , detailSkillsRef].forEach(ref => {
+          [
+            heroRef,
+            portfolioRef,
+            skillsRef,
+            testimonialsRef,
+            detailSkillsRef,
+          ].forEach((ref) => {
             if (ref.current) observer.observe(ref.current);
           });
 
@@ -70,7 +98,7 @@ const HeroLandingPage = () => {
         ticking = true;
       }
     };
-    
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -133,19 +161,25 @@ const HeroLandingPage = () => {
       {/* Main Page Content */}
       <main className="relative z-10">
         {/* Hero Section */}
-        <section ref={heroRef} className="relative">
-          <HeroSection isVisible={isVisible.hero} scrollY={scrollY} />
-        </section>
+        <Suspense fallback={<LoadingAnimation />}>
+          <section ref={heroRef} className="relative">
+            <HeroSection isVisible={isVisible.hero} scrollY={scrollY} />
+          </section>
+        </Suspense>
 
         {/* Portfolio Section */}
-        <section ref={portfolioRef} className="relative py-20 bg-surface">
-          <PortfolioPreview isVisible={isVisible.portfolio} />
-        </section>
+        <Suspense fallback={<LoadingAnimation />}>
+          <section ref={portfolioRef} className="relative py-20 bg-surface">
+            <PortfolioPreview isVisible={isVisible.portfolio} />
+          </section>
+        </Suspense>
 
         {/* Skills Section */}
-        <section ref={skillsRef} className="relative py-20 bg-background">
-          <SkillsBadges isVisible={isVisible.skills} />
-        </section>
+        <Suspense fallback={<LoadingAnimation />}>
+          <section ref={skillsRef} className="relative py-20 bg-background">
+            <SkillsBadges isVisible={isVisible.skills} />
+          </section>
+        </Suspense>
 
         {/* Testimonials Section */}
         {/* <section ref={testimonialsRef} className="relative py-20 bg-surface">
@@ -153,9 +187,14 @@ const HeroLandingPage = () => {
         </section> */}
 
         {/* Skills Section */}
-        <section ref={detailSkillsRef} className="relative py-20 bg-background">
-          <DetailSkills isVisible={isVisible.detailSkills} />
-        </section>
+        <Suspense fallback={<LoadingAnimation />}>
+          <section
+            ref={detailSkillsRef}
+            className="relative py-20 bg-background"
+          >
+            <DetailSkills isVisible={isVisible.detailSkills} />
+          </section>
+        </Suspense>
 
         {/* Call to Action */}
         <section className="relative py-20 bg-gradient-to-br from-primary via-primary-700 to-secondary">
@@ -165,7 +204,8 @@ const HeroLandingPage = () => {
                 Ready to Create Something Royal?
               </h2>
               <p className="text-primary-200 text-lg mb-8">
-                Let's collaborate and bring your vision to life with premium design and development.
+                Let's collaborate and bring your vision to life with premium
+                design and development.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
@@ -188,10 +228,21 @@ const HeroLandingPage = () => {
 
           {/* Icons */}
           <div className="absolute top-8 left-8 opacity-20">
-            <Icon name="Crown" size={32} color="#B8860B" className="animate-pulse" />
+            <Icon
+              name="Crown"
+              size={32}
+              color="#B8860B"
+              className="animate-pulse"
+            />
           </div>
           <div className="absolute bottom-8 right-8 opacity-20">
-            <Icon name="Sparkles" size={32} color="#B8860B" className="animate-pulse" style={{ animationDelay: '300ms' }} />
+            <Icon
+              name="Sparkles"
+              size={32}
+              color="#B8860B"
+              className="animate-pulse"
+              style={{ animationDelay: "300ms" }}
+            />
           </div>
         </section>
       </main>

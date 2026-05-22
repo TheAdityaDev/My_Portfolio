@@ -8,7 +8,7 @@ const SocialLinks = () => {
       id: 1,
       name: 'LinkedIn',
       icon: 'Linkedin',
-      url: 'https://linkedin.com/in/royalportfolio',
+      url: 'www.linkedin.com/in/adityapatil-fullstackdeveloper',
       color: 'from-blue-500 to-blue-600',
       hoverColor: 'hover:from-blue-600 hover:to-blue-700',
       description: 'Professional network'
@@ -17,47 +17,47 @@ const SocialLinks = () => {
       id: 2,
       name: 'GitHub',
       icon: 'Github',
-      url: 'https://github.com/royalportfolio',
+      url: 'https://github.com/TheAdityaDev',
       color: 'from-gray-700 to-gray-800',
       hoverColor: 'hover:from-gray-800 hover:to-gray-900',
       description: 'Code repositories'
     },
     {
       id: 3,
-      name: 'Twitter',
+      name: 'X',
       icon: 'Twitter',
-      url: 'https://twitter.com/royalportfolio',
+      url: 'https://x.com/Aditya2125Patil',
       color: 'from-sky-400 to-sky-500',
       hoverColor: 'hover:from-sky-500 hover:to-sky-600',
       description: 'Latest updates'
     },
-    {
-      id: 4,
-      name: 'Dribbble',
-      icon: 'Dribbble',
-      url: 'https://dribbble.com/royalportfolio',
-      color: 'from-pink-500 to-pink-600',
-      hoverColor: 'hover:from-pink-600 hover:to-pink-700',
-      description: 'Design showcase'
-    },
-    {
-      id: 5,
-      name: 'Behance',
-      icon: 'Palette',
-      url: 'https://behance.net/royalportfolio',
-      color: 'from-purple-500 to-purple-600',
-      hoverColor: 'hover:from-purple-600 hover:to-purple-700',
-      description: 'Creative portfolio'
-    },
-    {
-      id: 6,
-      name: 'Instagram',
-      icon: 'Instagram',
-      url: 'https://instagram.com/royalportfolio',
-      color: 'from-gradient-to-r from-purple-500 via-pink-500 to-red-500',
-      hoverColor: 'hover:from-purple-600 hover:via-pink-600 hover:to-red-600',
-      description: 'Behind the scenes'
-    }
+    // {
+    //   id: 4,
+    //   name: 'Dribbble',
+    //   icon: 'Dribbble',
+    //   url: 'https://dribbble.com/royalportfolio',
+    //   color: 'from-pink-500 to-pink-600',
+    //   hoverColor: 'hover:from-pink-600 hover:to-pink-700',
+    //   description: 'Design showcase'
+    // },
+    // {
+    //   id: 5,
+    //   name: 'Behance',
+    //   icon: 'Palette',
+    //   url: 'https://behance.net/royalportfolio',
+    //   color: 'from-purple-500 to-purple-600',
+    //   hoverColor: 'hover:from-purple-600 hover:to-purple-700',
+    //   description: 'Creative portfolio'
+    // },
+    // {
+    //   id: 6,
+    //   name: 'Instagram',
+    //   icon: 'Instagram',
+    //   url: 'https://instagram.com/royalportfolio',
+    //   color: 'from-gradient-to-r from-purple-500 via-pink-500 to-red-500',
+    //   hoverColor: 'hover:from-purple-600 hover:via-pink-600 hover:to-red-600',
+    //   description: 'Behind the scenes'
+    // }
   ];
 
   const containerVariants = {

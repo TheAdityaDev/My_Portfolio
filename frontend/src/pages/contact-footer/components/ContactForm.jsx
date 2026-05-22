@@ -35,27 +35,32 @@ const HRContactForm = () => {
 
   // FETCH COMPANY AUTOCOMPLETE
   useEffect(() => {
+    const controller = new AbortController();
     const fetchCompanies = async () => {
       if (!companyName || companyName.length < 2) {
         setCompanySuggestions([]);
+        setShowSuggestions(false);
         return;
       }
 
       try {
         const response = await axios.get(
           `https://autocomplete.clearbit.com/v1/companies/suggest?query=${companyName}`,
+          { signal: controller.signal }
         );
 
         setCompanySuggestions(response.data);
         setShowSuggestions(true);
       } catch (error) {
-        console.log(error);
+        if (!axios.isCancel(error)) console.log(error);
       }
     };
 
-    const timer = setTimeout(fetchCompanies, 400);
-
-    return () => clearTimeout(timer);
+    const timer = setTimeout(fetchCompanies, 800); // Increased debounce delay for typing
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
   }, [companyName]);
 
   const onSubmit = async (data) => {
@@ -143,9 +148,10 @@ const HRContactForm = () => {
                       className="flex items-center gap-4 px-5 py-4 hover:bg-gray-100 cursor-pointer"
                     >
                       <img
-                        src={company.logo}
+                        src={company.logo || `https://ui-avatars.com/api/?name=${company.name}&background=random`}
                         alt={company.name}
                         className="w-12 h-12 rounded-xl border object-contain"
+                        onError={(e) => { e.target.src = 'https://via.placeholder.com/48?text=Corp'; }}
                       />
 
                       <div>

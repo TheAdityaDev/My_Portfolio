@@ -7,6 +7,7 @@ import AboutSkillsShowcase from "pages/about-skills-showcase";
 import PortfolioGallery from "pages/portfolio-gallery";
 import ContactFooter from "pages/contact-footer";
 import Resume from "pages/resume";
+import AchievementsPage from "pages/achievements";
 
 const Routes = () => {
   return (
@@ -20,6 +21,7 @@ const Routes = () => {
           <Route path="/portfolio-gallery" element={<PortfolioGallery />} />
           <Route path="/contact-footer" element={<ContactFooter />} />
           <Route path="/resume" element={<Resume />} />
+          <Route path="/achievements" element={<AchievementsPage />} />
         </RouterRoutes>
       </ErrorBoundary>
     </BrowserRouter>

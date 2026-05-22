@@ -1,1355 +1,826 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Cpu,
-  Server,
-  Wrench,
-  Code,
-  User,
-  Linkedin,
-  Github,
-  Mail,
-  PanelRight,
-  Database,
-  ShieldCheck,
-  Zap,
-  Sparkles,
-  Terminal,
-  Compass,
-  Eye,
-  RefreshCw,
-  Send,
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  ArrowLeft, 
+  Send, 
+  Sparkles, 
+  Check, 
+  Download, 
   ChevronRight,
-  CheckCircle2,
-  BookOpen,
-  Award,
-  Layers,
-  HelpCircle,
-  Download,
+  User,
+  Cpu,
+  Code,
   FileText,
-} from "lucide-react";
+  Clock,
+  Briefcase,
+  MapPin,
+  Mail,
+  Phone,
+  Layers,
+  Award
+} from 'lucide-react';
 
-// Cosmic visual configurations corresponding to user selectable theme states
-const cosmicThemes = {
-  andromeda: {
-    name: "Andromeda Violet",
-    bg: "radial-gradient(circle at center, #1E1233 0%, #080312 100%)",
-    accent: "text-purple-400",
-    accentBg: "bg-purple-500/10",
-    border: "border-purple-500/30",
-    buttonBg: "bg-purple-900/40 hover:bg-purple-800/60",
-    particleColor: "#a78bfa",
-    nebulaGlow: "rgba(139, 92, 246, 0.15)",
-    hologramColor: "#a78bfa",
-    ringColor: "rgba(167, 139, 250, 0.4)",
-    pulseColor: "bg-purple-500",
-  },
-  supernova: {
-    name: "Supernova Amber",
-    bg: "radial-gradient(circle at center, #291207 0%, #0A0300 100%)",
-    accent: "text-amber-400",
-    accentBg: "bg-amber-500/10",
-    border: "border-amber-500/30",
-    buttonBg: "bg-amber-900/40 hover:bg-amber-800/60",
-    particleColor: "#fbbf24",
-    nebulaGlow: "rgba(245, 158, 11, 0.15)",
-    hologramColor: "#fbbf24",
-    ringColor: "rgba(251, 191, 36, 0.4)",
-    pulseColor: "bg-amber-500",
-  },
-  deepspace: {
-    name: "Deep Horizon Cyan",
-    bg: "radial-gradient(circle at center, #0B1D28 0%, #02070A 100%)",
-    accent: "text-cyan-400",
-    accentBg: "bg-cyan-500/10",
-    border: "border-cyan-500/30",
-    buttonBg: "bg-cyan-900/40 hover:bg-cyan-800/60",
-    particleColor: "#22d3ee",
-    nebulaGlow: "rgba(6, 182, 212, 0.15)",
-    hologramColor: "#22d3ee",
-    ringColor: "rgba(34, 211, 238, 0.4)",
-    pulseColor: "bg-cyan-500",
-  },
-};
+// DEVELOPER NOTE: Paste your free Gemini API Key here to enable live responses.
+// If empty, the system automatically uses the highly detailed local JSON response dataset.
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ""; 
 
-const combinedData = {
-  Name: "Aditya Patil",
-  Contact: {
-    Phone: "+91 8855040187",
-    Email: "adityadev21@gmail.com",
-    Location: "Pune, India",
+// High-integrity candidate JSON datasets with associated pre-compiled mock responses
+const CANDIDATE_JSON_DATA = [
+  {
+    id: 'frontend-developer',
+    name: 'Alex Mercer',
+    role: 'Principal Frontend Engineer',
+    category: 'Graphics & Core UI',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200&h=200',
+    email: 'alex.mercer@innovate.io',
+    phone: '+91 8855040187',
+    location: 'San Francisco, CA',
+    skills: ["React / Next.js", "WebGL & Three.js", "Tailwind Design Tokens", "TypeScript", "UI Performance Optimization"],
+    summary: "High-performing React architect & graphics developer with 8+ years designing low-latency, fluid, and responsive user interfaces.",
+    actualResponses: {
+      "what are alex's core framework proficiencies?": "Alex Mercer focuses heavily on React, Next.js, and Svelte, utilizing custom utility systems for low-latency visual render pipelines.",
+      "can you describe his webgl engineering expertise?": "Alex specializes in high-performance graphics integrations, including custom WebGL, Three.js vector states, and high-DPI canvas layouts.",
+      "does alex have experience with design system tokens?": "Yes, Alex has designed extensive multi-brand styling libraries using CSS custom variable tokens mapped entirely through Tailwind CSS."
+    },
+    suggestedPrompts: [
+      "What are Alex's core framework proficiencies?",
+      "Can you describe his WebGL engineering expertise?",
+      "Does Alex have experience with design system tokens?"
+    ]
   },
-  LinkedIn: "www.linkedin.com/in/aditya-patil-014404343",
-  GitHub: "github.com/TheAdityaDev",
-  ResumeLink:
-    "https://drive.google.com/file/d/1B6_b80j8uR70tLzX3h-yV069G917X69V/view?usp=sharing", // Dedicated Google Drive Resume node
-  ResumeDownload:
-    "https://docs.google.com/uc?export=download&id=1B6_b80j8uR70tLzX3h-yV069G917X69V", // Direct raw delivery payload endpoint
-  Stats: [
-    { label: "Code Optimization", value: "+35%" },
-    { label: "Message Delivery", value: "<200ms" },
-    { label: "Lighthouse Score", value: "95+" },
-    { label: "Architectures Built", value: "Multi-Tier" },
-  ],
-  "Technical Skills": {
-    Frontend: {
-      icon: Code,
-      color: "from-amber-400 to-orange-500",
-      shadow: "shadow-amber-500/50",
-      border: "border-amber-400",
-      bg: "bg-amber-400/10",
-      text: "text-amber-400",
-      description: "Crafting beautiful, snappy, and fluid user interfaces",
-      skills: [
-        "React.js",
-        "Redux Toolkit",
-        "JavaScript (ES6+)",
-        "Tailwind CSS",
-        "Responsive Web Design",
-        "HTML5",
-        "CSS3",
-        "GSAP",
-      ],
+  {
+    id: 'backend-developer',
+    name: 'Sarah Chen',
+    role: 'Distributed Cloud Systems Architect',
+    category: 'Database & Infrastructure',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200',
+    email: 'sarah.chen@cloudscale.net',
+    phone: '+1 (555) 901-2248',
+    location: 'Seattle, WA',
+    skills: ["Go / Rust / Node.js", "PostgreSQL Clustering", "Kafka Stream Processing", "Docker & Kubernetes", "gRPC / Protobuf"],
+    summary: "Distributed systems architect expert in low-latency infrastructure pipelines, high-throughput microservices, and high-integrity database tuning.",
+    actualResponses: {
+      "what programming languages does sarah write in?": "Sarah Chen builds concurrent pipelines primarily in Go, Rust, and Node.js for modern memory-safe computing.",
+      "explain sarah's experience with database scaling.": "Sarah optimizes DB read/write mirrors in PostgreSQL, routes analytical pipelines via Apache Kafka, and secures sessions with dual-layer Redis locks.",
+      "how does she approach microservice orchestration?": "She packages lightweight Alpine containers, hosting them on Kubernetes, with lightning-fast inter-service communication managed via gRPC and Protobuf."
     },
-    Backend: {
-      icon: Database,
-      color: "from-purple-500 to-indigo-600",
-      shadow: "shadow-purple-500/50",
-      border: "border-purple-400",
-      bg: "bg-purple-400/10",
-      text: "text-purple-400",
-      description: "Engineering robust pipelines, APIs, and microservices",
-      skills: [
-        "Node.js",
-        "Express.js",
-        "REST API",
-        "WebSockets",
-        "GraphQL",
-        "MongoDB",
-        "PostgreSQL",
-        "Prisma ORM",
-      ],
-    },
-    Security: {
-      icon: ShieldCheck,
-      color: "from-emerald-400 to-teal-500",
-      shadow: "shadow-emerald-500/50",
-      border: "border-emerald-400",
-      bg: "bg-emerald-400/10",
-      text: "text-emerald-400",
-      description: "Securing modern web infrastructures & user data",
-      skills: [
-        "JWT",
-        "OAuth 2.0",
-        "Data Validation",
-        "Encryption",
-        "Helmet.js",
-        "CORS",
-      ],
-    },
-    Performance: {
-      icon: Zap,
-      color: "from-rose-400 to-red-500",
-      shadow: "shadow-rose-500/50",
-      border: "border-rose-400",
-      bg: "bg-rose-400/10",
-      text: "text-rose-400",
-      description: "Scaling databases, caching, and distribution protocols",
-      skills: ["Caching (Redis)", "Load Balancing", "Docker", "AWS", "CI/CD"],
-    },
-    "UI/UX & Tools": {
-      icon: User,
-      color: "from-cyan-400 to-blue-500",
-      shadow: "shadow-cyan-500/50",
-      border: "border-cyan-400",
-      bg: "bg-cyan-400/10",
-      text: "text-cyan-400",
-      description:
-        "Architecting interactive designs and deployment configurations",
-      skills: [
-        "Figma",
-        "Wireframing",
-        "Accessibility (WCAG)",
-        "Git",
-        "GitHub",
-        "Vite",
-        "Postman",
-      ],
-    },
+    suggestedPrompts: [
+      "What programming languages does Sarah write in?",
+      "Explain Sarah's experience with database scaling.",
+      "How does she approach microservice orchestration?"
+    ]
   },
-  roles: {
-    frontend: {
-      Title: "Frontend Architect",
-      icon: PanelRight,
-      Projects: [
-        {
-          Title: "Automated Code Optimizer UI",
-          Description:
-            "Developed a high-fidelity web interface supporting multi-language analysis. Integrated elegant visualizations and visual metrics, improving code performance perception. Automated refactoring actions dynamically on visual editor canvases.",
-          Metrics: ["95+ Lighthouse Score", "35% performance gain view"],
-          Tech: ["React.js", "Tailwind CSS", "GSAP Animations", "Vite"],
-        },
-        {
-          Title: "GTA 6 Immersive Clone",
-          Description:
-            "Built an award-grade interactive clone of the official Rockstar GTA 6 teaser website with extreme responsive parallax layouts, fully tracking cursor physics, custom sound decks, and stellar cinematic CSS layouts.",
-          Metrics: ["100k+ Potential Reach", "GSAP Mouse Tracking"],
-          Tech: [
-            "JavaScript ES6+",
-            "GSAP Core",
-            "Parallax Engines",
-            "HTML5 Canvas API",
-          ],
-        },
-      ],
+  {
+    id: 'fullstack-developer',
+    name: 'Marcus Vance',
+    role: 'Principal Fullstack Engineer',
+    category: 'Full Range Integration',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200&h=200',
+    email: 'marcus.vance@vancetech.com',
+    phone: '+1 (555) 473-1189',
+    location: 'Austin, TX',
+    skills: ["Next.js / React", "Node.js Serverless", "OAuth 2.0 / JWT", "AWS Lambda & Cognito", "CI/CD & Cypress Testing"],
+    summary: "Versatile Fullstack engineer focused on Next.js Serverless architectures, secure token identity flows, and automated cloud deployments.",
+    actualResponses: {
+      "what is marcus's preferred fullstack stack?": "Marcus prefers next-generation Next.js serverless applications mapped on AWS Lambda endpoints, combining dynamic Client UI and Node.js REST/GraphQL APIs.",
+      "describe the security standards marcus implements.": "Marcus structures cryptographic JWT verification layers, OAuth 2.0 multi-tenant flows, and maintains automated dependency auditing within Dockerized microservices.",
+      "does marcus manage continuous integration pipelines?": "Yes, he builds robust parallel CI/CD configurations in GitHub Actions, integrating Jest unit tests and Cypress visual flows to guarantee zero-friction deployments."
     },
-    backend: {
-      Title: "Backend Systems Engineer",
-      icon: Server,
-      Projects: [
-        {
-          Title: "Code Optimizer Core API",
-          Description:
-            "Designed a server system to ingest multi-language snippets, applying modern AST parser pipelines to optimize compilation targets. Configured reliable image manipulation pipelines secured by custom JWT systems.",
-          Metrics: ["35% Faster Code Executions", "Rate Limiter Configured"],
-          Tech: ["Node.js", "Express", "AST Parser Modules", "JWT Security"],
-        },
-        {
-          Title: "Low-Latency Live Chat Engine",
-          Description:
-            "Engineered a low-latency chat hub running WebSocket streams. Configured multi-room support, security token validation on handshakes, and caching message delivery loops with state integrity checks.",
-          Metrics: ["Sub-200ms Latency", "10k+ concurrent packets"],
-          Tech: [
-            "Socket.io",
-            "Redis WebSockets",
-            "Node.js Server",
-            "MongoDB Store",
-          ],
-        },
-      ],
-    },
-  },
-};
+    suggestedPrompts: [
+      "What is Marcus's preferred fullstack stack?",
+      "Describe the security standards Marcus implements?",
+      "Does Marcus manage continuous integration pipelines?"
+    ]
+  }
+];
 
-function ParticleBackground({ activeTheme }) {
-  const canvasRef = useRef(null);
+export default function App() {
+  const [selectedDocId, setSelectedDocId] = useState(null);
+  const [activePage, setActivePage] = useState(1);
+  const [chatHistories, setChatHistories] = useState({});
+  const [userPrompt, setUserPrompt] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingMessageId, setTypingMessageId] = useState(null);
+  const [toast, setToast] = useState({ visible: false, title: '', message: '', isAlert: false });
+
+  const chatContainerRef = useRef(null);
+  const activeDoc = CANDIDATE_JSON_DATA.find(d => d.id === selectedDocId);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let animationFrameId;
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistories, isTyping]);
 
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+  const triggerToast = (title, message, isAlert = false) => {
+    setToast({ visible: true, title, message, isAlert });
+    setTimeout(() => {
+      setToast(prev => ({ ...prev, visible: false }));
+    }, 3500);
+  };
 
-    const particleCount = Math.min(Math.floor((width * height) / 9000), 160);
-    const particles = [];
-    const color = cosmicThemes[activeTheme].particleColor;
+  const handleDownloadFile = (type, doc) => {
+    let filename = `${doc.name.toLowerCase().replace(' ', '_')}_resume`;
+    let content = "";
+    let mimeType = "text/plain";
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.6 + 0.4,
-        dx: (Math.random() - 0.5) * 0.25,
-        dy: (Math.random() - 0.5) * 0.25,
-        glow: Math.random() > 0.85,
-        alpha: Math.random() * 0.6 + 0.2,
-        alphaDir: Math.random() > 0.5 ? 0.003 : -0.003,
-      });
+    if (type === 'txt' || type === 'doc') {
+      content = `
+=========================================================
+${doc.name.toUpperCase()} - ${doc.role.toUpperCase()}
+=========================================================
+Sector Category: ${doc.category}
+Location: ${doc.location}
+Contact: ${doc.email} | ${doc.phone}
+
+EXECUTIVE SUMMARY:
+${doc.summary}
+
+VERIFIED CORE SKILLS:
+${doc.skills.join(', ')}
+
+PROFESSIONAL EXPERIENCE RECORD:
+${doc.experience.map(exp => `
+* ${exp.role} at ${exp.company} (${exp.duration})
+  ${exp.desc}
+`).join('')}
+
+---------------------------------------------------------
+Generated dynamically via PDF Candidate System.
+`;
     }
 
-    let mouse = { x: null, y: null, radius: 130 };
-    const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+    if (type === 'txt') {
+      filename += ".txt";
+      mimeType = "text/plain";
+    } else if (type === 'doc') {
+      filename += ".doc";
+      mimeType = "application/msword";
+    } else if (type === 'pdf') {
+      filename += ".pdf";
+      mimeType = "application/pdf";
+      content = `%PDF-1.4\n%... Simulated PDF Content payload for ${doc.name} ...`;
+    }
+
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    triggerToast(
+      "Download Initiated", 
+      `The file "${filename}" has been successfully exported.`
+    );
+  };
+
+  const processAIQuery = async (promptText) => {
+    if (!promptText.trim() || !activeDoc) return;
+    if (isTyping) {
+      triggerToast("Processor Engaged", "Please wait for the current stream animation to finish.", true);
+      return;
+    }
+
+    const docId = activeDoc.id;
+    const cleanPrompt = promptText.trim();
+    
+    const userMessage = {
+      id: `user-${Date.now()}`,
+      sender: 'user',
+      text: cleanPrompt,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
+
+    const currentHistory = chatHistories[docId] || [];
+    const updatedWithUser = [...currentHistory, userMessage];
+    
+    setChatHistories(prev => ({
+      ...prev,
+      [docId]: updatedWithUser
+    }));
+    
+    setUserPrompt('');
+    setIsTyping(true);
+
+    const aiResponseId = `ai-${Date.now()}`;
+    const aiPlaceholderMessage = {
+      id: aiResponseId,
+      sender: 'ai',
+      text: '', 
+      isFake: false,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
+    setChatHistories(prev => ({
+      ...prev,
+      [docId]: [...updatedWithUser, aiPlaceholderMessage]
+    }));
+    setTypingMessageId(aiResponseId);
 
-    const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-    window.addEventListener("resize", handleResize);
+    let finalResponseText = '';
+    let usedFakeFallback = false;
 
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
+    // Evaluate whether user has configured a valid API Key
+    if (GEMINI_API_KEY && GEMINI_API_KEY.trim() !== "") {
+      try {
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+        
+        const systemPrompt = `You are a professional hiring manager evaluating candidate ${activeDoc.name}'s resume credentials.
+        Here is the candidate's exact background data in structured JSON format:
+        ${JSON.stringify(activeDoc)}
+        
+        Guidelines:
+        - Talk naturally as a seasoned tech lead or recruiter representing ${activeDoc.name}.
+        - Be highly concise, engaging, and precise. Avoid raw markdown formatting.
+        - Directly answer this inquiry: "${cleanPrompt}".`;
 
-      const gradient = ctx.createRadialGradient(
-        width / 2,
-        height / 2,
-        40,
-        width / 2,
-        height / 2,
-        Math.max(width, height) * 0.7,
-      );
-      gradient.addColorStop(0, cosmicThemes[activeTheme].nebulaGlow);
-      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
+        const payload = {
+          contents: [{ parts: [{ text: systemPrompt }] }]
+        };
 
-      // Web aesthetic cosmic coordinate graph markings
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.015)";
-      ctx.lineWidth = 1;
-      const step = 90;
-      for (let x = 0; x < width; x += step) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < height; y += step) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
 
-      particles.forEach((p) => {
-        p.x += p.dx;
-        p.y += p.dy;
-
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
-
-        // Interactive gravity mechanics
-        if (mouse.x !== null && mouse.y !== null) {
-          const distX = p.x - mouse.x;
-          const distY = p.y - mouse.y;
-          const distance = Math.sqrt(distX * distX + distY * distY);
-          if (distance < mouse.radius) {
-            const force = (mouse.radius - distance) / mouse.radius;
-            p.x += (distX / distance) * force * 1.2;
-            p.y += (distY / distance) * force * 1.2;
-          }
+        if (!response.ok) {
+          throw new Error("API rate limit reached or key is incorrect.");
         }
 
-        p.alpha += p.alphaDir;
-        if (p.alpha > 0.95 || p.alpha < 0.15) {
-          p.alphaDir = -p.alphaDir;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.globalAlpha = p.alpha;
-
-        if (p.glow) {
-          ctx.shadowBlur = 6;
-          ctx.shadowColor = color;
+        const data = await response.json();
+        const outputText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        
+        if (outputText) {
+          finalResponseText = outputText;
         } else {
-          ctx.shadowBlur = 0;
+          throw new Error("Empty response object received from Gemini Server.");
         }
 
-        ctx.fill();
-        ctx.globalAlpha = 1.0;
-        ctx.shadowBlur = 0;
-      });
-
-      animationFrameId = requestAnimationFrame(draw);
-    };
-
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [activeTheme]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 z-0 block pointer-events-none"
-    />
-  );
-}
-
-function FuturisticAvatar({ activeTheme, size = "w-16 h-16" }) {
-  const currentTheme = cosmicThemes[activeTheme] || cosmicThemes.andromeda;
-  const mainColor = currentTheme.hologramColor;
-
-  return (
-    <div
-      className={`relative ${size} flex items-center justify-center select-none`}
-    >
-      {/* Dynamic spinning orbital telemetry matrices */}
-      <div
-        className="absolute inset-0 border border-dashed rounded-full animate-spin [animation-duration:18s]"
-        style={{ borderColor: `${mainColor}33` }}
-      />
-      <div
-        className="absolute inset-1 border rounded-full animate-spin [animation-duration:11s] [animation-direction:reverse]"
-        style={{ borderColor: `${mainColor}22` }}
-      />
-      <div
-        className="absolute inset-2 rounded-full blur-md opacity-30"
-        style={{
-          background: `radial-gradient(circle, ${mainColor} 0%, transparent 85%)`,
-        }}
-      />
-
-      {/* Futuristic Cyborg Cybernetic Core SVG Structure */}
-      <svg
-        viewBox="0 0 100 100"
-        className="w-[85%] h-[85%] relative z-10 drop-shadow-[0_0_6px_rgba(99,102,241,0.35)]"
-      >
-        <circle
-          cx="50"
-          cy="50"
-          r="45"
-          fill="#080c16"
-          stroke={`${mainColor}44`}
-          strokeWidth="1.2"
-        />
-        <path
-          d="M 50 5 L 50 95 M 5 50 L 95 50"
-          stroke={`${mainColor}11`}
-          strokeWidth="0.5"
-          strokeDasharray="2 2"
-        />
-        <circle
-          cx="50"
-          cy="50"
-          r="28"
-          fill="none"
-          stroke={`${mainColor}22`}
-          strokeWidth="0.8"
-        />
-        <rect
-          x="47"
-          y="56"
-          width="6"
-          height="8"
-          rx="1.2"
-          fill={`${mainColor}22`}
-          stroke={`${mainColor}44`}
-          strokeWidth="0.8"
-        />
-        <line
-          x1="47"
-          y1="60"
-          x2="53"
-          y2="60"
-          stroke={mainColor}
-          strokeWidth="0.8"
-        />
-        <path
-          d="M 25 82 C 25 70, 34 62, 50 62 C 66 62, 75 70, 75 82 Z"
-          fill={`${mainColor}18`}
-          stroke={`${mainColor}99`}
-          strokeWidth="1.2"
-        />
-        <path
-          d="M 34 66 L 40 75 M 66 66 L 60 75"
-          stroke={mainColor}
-          strokeWidth="0.8"
-          opacity="0.5"
-        />
-        <circle
-          cx="50"
-          cy="36"
-          r="15"
-          fill="#0f1422"
-          stroke={`${mainColor}aa`}
-          strokeWidth="1.2"
-        />
-        <path
-          d="M 35 36 C 35 25, 42 20, 50 20 C 58 20, 65 25, 65 36 C 65 36, 61 28, 50 28 C 39 28, 35 36, 35 36 Z"
-          fill={`${mainColor}33`}
-        />
-        <circle cx="63" cy="39" r="1.5" fill={mainColor} />
-        <path d="M 63 39 L 57 43" stroke={mainColor} strokeWidth="0.8" />
-        <rect
-          x="38"
-          y="30"
-          width="24"
-          height="6"
-          rx="3"
-          fill={mainColor}
-          className="animate-pulse"
-        />
-        <path
-          d="M 37 33 L 38 33 M 62 33 L 63 33"
-          stroke={mainColor}
-          strokeWidth="1.8"
-        />
-        <path
-          d="M 41 32 L 49 32"
-          stroke="#ffffff"
-          strokeWidth="1.0"
-          strokeLinecap="round"
-          opacity="0.75"
-        />
-        <circle cx="56" cy="33" r="0.8" fill="#ffffff" />
-      </svg>
-    </div>
-  );
-}
-
-function SpaceTerminal() {
-  const [history, setHistory] = useState([
-    { type: "sys", text: "SYSTEM INGESTION MAIN COMM PORT READY." },
-    {
-      type: "sys",
-      text: 'Type "help" or select commands from prompt row below.',
-    },
-  ]);
-  const [inputVal, setInputVal] = useState("");
-  const terminalEndRef = useRef(null);
-
-  const commandPresets = [
-    "about",
-    "skills",
-    "projects",
-    "contact",
-    "resume",
-    "clear",
-  ];
-
-  const handleCommandRun = (cmdStr) => {
-    const rawInput = cmdStr.trim();
-    if (!rawInput) return;
-    const cleanCmd = rawInput.toLowerCase();
-
-    let outputResult = [];
-    switch (cleanCmd) {
-      case "help":
-        outputResult = [
-          { type: "input", text: rawInput },
-          { type: "output", text: "Terminal Mainframe System Codes:" },
-          {
-            type: "output",
-            text: "  - about     : Learn who Aditya is and basic metrics",
-          },
-          {
-            type: "output",
-            text: "  - skills    : Pull active technical stack nodes",
-          },
-          {
-            type: "output",
-            text: "  - projects  : Map and extract cosmic project developments",
-          },
-          {
-            type: "output",
-            text: "  - contact   : Secure contact coordination pathways",
-          },
-          {
-            type: "output",
-            text: "  - resume    : Display options to pull secure resume payload",
-          },
-          {
-            type: "output",
-            text: "  - clear     : Wipe screen logs from view",
-          },
-        ];
-        break;
-      case "about":
-        outputResult = [
-          { type: "input", text: rawInput },
-          { type: "output", text: `CODENAME: ${combinedData.Name}` },
-          {
-            type: "output",
-            text: "ROLE: Web Systems Dev & Full Stack Performance Optimizer",
-          },
-          { type: "output", text: "GEOLOCATION: Pune, India" },
-          {
-            type: "output",
-            text: "SUMMARY: Building interactive, extremely detailed interfaces with lightning-fast APIs.",
-          },
-        ];
-        break;
-      case "skills":
-        outputResult = [
-          { type: "input", text: rawInput },
-          { type: "output", text: "Decompiling core engineering skills..." },
-          ...Object.entries(combinedData["Technical Skills"]).map(
-            ([category, details]) => ({
-              type: "output",
-              text: `[${category.toUpperCase()}]: ${details.skills.join(", ")}`,
-            }),
-          ),
-        ];
-        break;
-      case "projects":
-        outputResult = [
-          { type: "input", text: rawInput },
-          {
-            type: "output",
-            text: "Fetching operational galaxy constellations...",
-          },
-          ...Object.entries(combinedData.roles).flatMap(([rKey, value]) =>
-            value.Projects.map((p) => ({
-              type: "output",
-              text: `🌟 [${value.Title}] ${p.Title}: ${p.Description} [Core Tech: ${p.Tech.join(", ")}]`,
-            })),
-          ),
-        ];
-        break;
-      case "contact":
-        outputResult = [
-          { type: "input", text: rawInput },
-          { type: "output", text: "Coordinate protocols established:" },
-          {
-            type: "output",
-            text: `  - Phone No : ${combinedData.Contact.Phone}`,
-          },
-          {
-            type: "output",
-            text: `  - Email ID : ${combinedData.Contact.Email}`,
-          },
-          { type: "output", text: `  - GitHub   : ${combinedData.GitHub}` },
-          { type: "output", text: `  - LinkedIn : ${combinedData.LinkedIn}` },
-        ];
-        break;
-      case "resume":
-        outputResult = [
-          { type: "input", text: rawInput },
-          { type: "output", text: "ACCESSING CLOUD STORAGE DECK..." },
-          {
-            type: "output",
-            text: `CHECK SYSTEM PREVIEW: ${combinedData.ResumeLink}`,
-          },
-          {
-            type: "output",
-            text: `DIRECT HARD DOWNLOAD: ${combinedData.ResumeDownload}`,
-          },
-          {
-            type: "output",
-            text: "Redirect triggered to live web check standard.",
-          },
-        ];
-        window.open(combinedData.ResumeLink, "_blank");
-        break;
-      case "clear":
-        setHistory([]);
-        setInputVal("");
-        return;
-      default:
-        outputResult = [
-          { type: "input", text: rawInput },
-          {
-            type: "output",
-            text: `Code sequence "${rawInput}" unrecognized. Type "help" to display presets.`,
-          },
-        ];
-    }
-
-    setHistory((prev) => [...prev, ...outputResult]);
-    setInputVal("");
-  };
-
-  useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [history]);
-
-  return (
-    <div className="bg-black/90 border border-slate-800/80 rounded-xl p-4 font-mono text-xs sm:text-sm shadow-2xl backdrop-blur-md h-[340px] flex flex-col justify-between">
-      <div className="flex items-center justify-between border-b border-slate-900 pb-2 mb-2 text-slate-500">
-        <div className="flex items-center space-x-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block"></span>
-          <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block"></span>
-          <span className="w-2.5 h-2.5 rounded-full bg-green-500/80 inline-block"></span>
-          <span className="text-[10px] uppercase tracking-wider font-semibold ml-2">
-            aditya_mainframe_secure.sh
-          </span>
-        </div>
-        <div className="flex items-center space-x-1 text-[10px] text-slate-600">
-          <Terminal size={10} />
-          <span>SH_SECURE_LINK</span>
-        </div>
-      </div>
-
-      <div className="flex-1 overflow-y-auto space-y-1.5 pr-1 text-slate-300 custom-scrollbar">
-        {history.map((log, index) => (
-          <div key={index} className="leading-relaxed">
-            {log.type === "input" && (
-              <span className="text-teal-400">
-                <span className="text-slate-600">aditya@terminal-deck:~$</span>{" "}
-                {log.text}
-              </span>
-            )}
-            {log.type === "output" && (
-              <span className="text-indigo-200 block pl-3 border-l border-indigo-500/20">
-                {log.text}
-              </span>
-            )}
-            {log.type === "sys" && (
-              <span className="text-amber-400 font-semibold block">
-                {log.text}
-              </span>
-            )}
-          </div>
-        ))}
-        <div ref={terminalEndRef} />
-      </div>
-
-
-      <div className="py-2 border-t border-slate-900 flex flex-wrap gap-1.5 items-center">
-        <span className="text-[9px] text-slate-600 uppercase font-bold mr-1">
-          Hotkeys:
-        </span>
-        {commandPresets.map((preset) => (
-          <button
-            key={preset}
-            onClick={() => handleCommandRun(preset)}
-            className="px-2 py-0.5 rounded bg-slate-900/90 hover:bg-slate-800 text-[10px] font-bold text-slate-400 hover:text-white transition-colors border border-slate-800/60"
-          >
-            {preset}
-          </button>
-        ))}
-      </div>
-
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleCommandRun(inputVal);
-        }}
-        className="flex items-center border-t border-slate-900 pt-2 text-slate-300 mt-1"
-      >
-        <span className="text-slate-600 mr-1.5 font-bold">
-          aditya@terminal-deck:~$
-        </span>
-        <input
-          type="text"
-          value={inputVal}
-          onChange={(e) => setInputVal(e.target.value)}
-          placeholder="Input operational mainframe command code..."
-          className="bg-transparent border-none  outline-none flex-1 text-teal-300 placeholder-slate-700 font-mono text-xs"
-        />
-        <button
-          type="submit"
-          className="p-1 hover:text-white text-slate-500 transition-colors"
-        >
-          <Send size={12} />
-        </button>
-      </form>
-    </div>
-  );
-}
-
-const PlanetNode = ({
-  category,
-  categoryInfo,
-  index,
-  total,
-  onSelect,
-  active,
-  orbitRadius,
-}) => {
-  const Icon = categoryInfo.icon;
-  const angle = (index / total) * 2 * Math.PI;
-  const x = Math.cos(angle) * orbitRadius;
-  const y = Math.sin(angle) * orbitRadius;
-
-  return (
-    <div className="absolute transition-transform duration-300 ease-out z-10">
-      <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ x, y, scale: 1, opacity: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 55,
-          damping: 11,
-          delay: index * 0.08,
-        }}
-      >
-        <svg
-          className="absolute top-1/2 left-1/2 -z-10 overflow-visible pointer-events-none"
-          style={{ transform: "translate(-50%, -50%)" }}
-        >
-          <line
-            x1="0"
-            y1="0"
-            x2={-x}
-            y2={-y}
-            className="stroke-slate-700/30 stroke-[1]"
-            strokeDasharray="3 3"
-          />
-        </svg>
-
-        <motion.div
-          onTap={() => onSelect(category)}
-          whileHover={{ scale: 1.1, y: -2 }}
-          className="relative group cursor-pointer flex flex-col items-center justify-center"
-        >
-          <div
-            className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br ${categoryInfo.color} p-[1.5px] transition-all duration-300 shadow-md ${active ? `scale-110 ring-2 ring-offset-2 ring-offset-slate-950 ring-indigo-400 ${categoryInfo.shadow}` : "hover:shadow-lg hover:shadow-indigo-500/20"}`}
-          >
-            <div className="w-full h-full rounded-full bg-slate-950 flex flex-col items-center justify-center p-1.5 text-center select-none">
-              <Icon
-                className={`w-5 h-5 sm:w-6 sm:h-6 ${categoryInfo.text} mb-1 group-hover:scale-110 transition-transform`}
-              />
-              <span className="text-[9px] sm:text-[10px] font-bold text-slate-300 leading-none tracking-tight">
-                {category}
-              </span>
-            </div>
-          </div>
-
-          <div className="absolute inset-0 -m-2 border border-indigo-400/10 rounded-full animate-pulse pointer-events-none group-hover:scale-105 transition-all duration-300" />
-
-          {active && (
-            <motion.div
-              className="absolute w-2 h-2 rounded-full bg-amber-400"
-              animate={{
-                x: [20, -20, 20],
-                y: [-20, 20, -20],
-              }}
-              transition={{ repeat: Infinity, duration: 3.5, ease: "linear" }}
-            />
-          )}
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-};
-
-function ConstellationView({ activeRole }) {
-  const currentRoleData = combinedData.roles[activeRole];
-
-  return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between border-b border-slate-900 pb-3">
-        <div>
-          <h3 className="text-lg font-bold text-slate-100 flex items-center gap-2">
-            <Compass className="w-4 h-4 text-amber-400 animate-spin [animation-duration:10s]" />
-            Development Constellation
-          </h3>
-          <p className="text-[11px] text-slate-500">
-            Connected system blueprints
-          </p>
-        </div>
-        <span className="text-[10px] font-mono px-2 py-0.5 bg-slate-900 rounded-full border border-slate-800 text-amber-400 uppercase tracking-wider font-semibold">
-          {currentRoleData.Title}
-        </span>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4">
-        {currentRoleData.Projects.map((proj, index) => (
-          <motion.div
-            key={proj.Title}
-            initial={{ opacity: 0, x: 15 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.35, delay: index * 0.1 }}
-            className="group relative bg-gradient-to-r from-slate-950 to-slate-900 border border-slate-900 hover:border-slate-800 rounded-xl p-4 transition-all shadow-md hover:shadow-lg overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-indigo-500/8 transition-colors" />
-
-            <div className="flex items-start justify-between mb-2 relative z-10">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded bg-indigo-950/40 border border-indigo-950 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-black transition-colors duration-250">
-                  <Layers size={14} />
-                </div>
-                <h4 className="font-bold text-slate-200 group-hover:text-amber-400 transition-colors duration-250 text-base">
-                  {proj.Title}
-                </h4>
-              </div>
-              <div className="flex gap-1 flex-wrap justify-end">
-                {proj.Metrics.map((met, mIdx) => (
-                  <span
-                    key={mIdx}
-                    className="text-[9px] font-mono bg-slate-900 text-teal-400 px-1.5 py-0.5 rounded border border-slate-800"
-                  >
-                    {met}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <p className="text-xs text-slate-400 leading-relaxed mb-3 pl-1">
-              {proj.Description}
-            </p>
-
-            <div className="flex flex-wrap gap-1 pt-2 border-t border-slate-950">
-              {proj.Tech.map((tech) => (
-                <span
-                  key={tech}
-                  className="text-[10px] px-2 py-0.5 rounded bg-indigo-950/10 text-indigo-300 border border-indigo-900/30 hover:border-indigo-500/30 transition-colors duration-150"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default function DeveloperUniverse() {
-  const [activeTab, setActiveTab] = useState("universe");
-  const [activeRole, setActiveRole] = useState("frontend");
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [activeTheme, setActiveTheme] = useState("andromeda");
-  const [copiedText, setCopiedText] = useState(false);
-
-  const currentRoleData = combinedData.roles[activeRole];
-  const skillCategories = Object.keys(combinedData["Technical Skills"]);
-
-  const orbitRadius = 125;
-
-  const handleSelectCategory = (category) => {
-    setSelectedCategory(category === selectedCategory ? null : category);
-  };
-
-  const copyEmailToClipboard = () => {
-    const email = combinedData.Contact.Email;
-    // Robust copy implementation for secure / unsecure Canvas iFrame sandbox integrations
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(email);
-      } else {
-        const textArea = document.createElement("textarea");
-        textArea.value = email;
-        textArea.style.position = "fixed";
-        textArea.style.left = "-999999px";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        document.execCommand("copy");
-        textArea.remove();
+      } catch (err) {
+        // Safe internal fallback transfer
+        usedFakeFallback = true;
+        const normalizedPrompt = cleanPrompt.toLowerCase().replace(/[?.,]/g, '').trim();
+        const foundResponse = activeDoc.actualResponses[normalizedPrompt];
+        
+        if (foundResponse) {
+          finalResponseText = `[AI System Backup Co-Pilot] ${foundResponse}`;
+        } else {
+          finalResponseText = `[AI System Backup Co-Pilot] Regarding ${activeDoc.name}'s record, they are verified experts in ${activeDoc.skills.slice(0, 3).join(', ')}. Let's inspect specific items in their professional history. Please select a suggested query below to view calculated metrics.`;
+        }
       }
-      setCopiedText(true);
-      setTimeout(() => setCopiedText(false), 2000);
-    } catch (err) {
-      console.error("Failed to execute clipboard write: ", err);
+    } else {
+      // Direct local offline routing if key is empty
+      usedFakeFallback = true;
+      const normalizedPrompt = cleanPrompt.toLowerCase().replace(/[?.,]/g, '').trim();
+      const foundResponse = activeDoc.actualResponses[normalizedPrompt];
+      
+      if (foundResponse) {
+        finalResponseText = foundResponse;
+      } else {
+        finalResponseText = `I have completed an local structural audit of ${activeDoc.name}'s verified dossier. They possess extensive background experience specializing in ${activeDoc.skills.slice(0, 3).join(', ')}. Click any of the preloaded prompts inside the chat box to initiate instant context-grounded analytics.`;
+      }
     }
+
+    triggerTypewriterEffect(finalResponseText, docId, aiResponseId, usedFakeFallback);
+  };
+
+  const triggerTypewriterEffect = (textString, docId, messageId, isFake) => {
+    let currentString = '';
+    let charIndex = 0;
+    
+    const typeTimer = setInterval(() => {
+      if (charIndex < textString.length) {
+        currentString += textString.charAt(charIndex);
+        charIndex++;
+        
+        setChatHistories(prev => {
+          const hist = prev[docId] || [];
+          return {
+            ...prev,
+            [docId]: hist.map(m => m.id === messageId ? { ...m, text: currentString, isFake } : m)
+          };
+        });
+      } else {
+        clearInterval(typeTimer);
+        setIsTyping(false);
+        setTypingMessageId(null);
+      }
+    }, 28); // Slower, highly humanized writing cadence
   };
 
   return (
-    <div
-      className="min-h-screen w-full relative overflow-x-hidden font-sans text-slate-200 flex flex-col transition-all duration-700 select-none pb-12"
-      style={{ background: cosmicThemes[activeTheme].bg }}
-    >
-      <ParticleBackground activeTheme={activeTheme} />
-
-      {/* Dynamic structural HUD layout */}
-      <main className="relative z-10 mt-20 w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Core Deck controller section */}
-        <div className="lg:col-span-7 flex flex-col gap-5">
-          <div className="flex bg-slate-950/80 border border-slate-900 p-1 rounded-xl gap-1.5 shadow-xl">
-            <button
-              onClick={() => {
-                setActiveTab("universe");
-                setSelectedCategory(null);
-              }}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === "universe" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/15" : "hover:bg-slate-900 text-slate-500"}`}
-            >
-              <Compass size={14} />
-              Orbit Deck
-            </button>
-            <button
-              onClick={() => setActiveTab("constellation")}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === "constellation" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/15" : "hover:bg-slate-900 text-slate-500"}`}
-            >
-              <Layers size={14} />
-              Projects
-            </button>
-            <button
-              onClick={() => setActiveTab("terminal")}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === "terminal" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/15" : "hover:bg-slate-900 text-slate-500"}`}
-            >
-              <Terminal size={14} />
-              Console Terminal
-            </button>
-          </div>
-
-          <div className="relative bg-slate-950/40 border border-slate-900/80 rounded-xl p-5 h-[440px] sm:h-[480px] flex items-center justify-center shadow-2xl overflow-hidden backdrop-blur-md">
-            <AnimatePresence mode="wait">
-              {activeTab === "universe" && (
-                <motion.div
-                  key="universe-deck"
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  className="w-full h-full relative flex items-center justify-center"
-                >
-                  {selectedCategory ? (
-                    <motion.div
-                      key="skill-expanded"
-                      className="absolute inset-2 sm:inset-4 bg-slate-950/95 rounded-xl border border-slate-800 p-5 flex flex-col justify-between backdrop-blur-xl"
-                      initial={{ scale: 0.95, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.95, opacity: 0 }}
-                      transition={{ duration: 0.35 }}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between border-b border-slate-900 pb-2.5 mb-3.5">
-                          <div className="flex items-center gap-2.5">
-                            <div
-                              className={`p-1.5 rounded bg-gradient-to-br ${combinedData["Technical Skills"][selectedCategory].color} text-black`}
-                            >
-                              {React.createElement(
-                                combinedData["Technical Skills"][
-                                  selectedCategory
-                                ].icon,
-                                { size: 16 },
-                              )}
-                            </div>
-                            <div>
-                              <h3 className="text-base font-extrabold text-white tracking-wide">
-                                {selectedCategory}
-                              </h3>
-                              <p className="text-[10px] text-slate-500 mt-0.5">
-                                {
-                                  combinedData["Technical Skills"][
-                                    selectedCategory
-                                  ].description
-                                }
-                              </p>
-                            </div>
-                          </div>
-                          <button
-                            onClick={() => setSelectedCategory(null)}
-                            className="px-2 py-0.5 hover:bg-slate-900 rounded text-xs text-slate-400 hover:text-white transition-colors border border-slate-900"
-                          >
-                            Close
-                          </button>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                          {combinedData["Technical Skills"][
-                            selectedCategory
-                          ].skills.map((skill, index) => (
-                            <motion.div
-                              key={skill}
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: index * 0.04 }}
-                              className="flex items-center gap-2 bg-slate-950/85 p-2 rounded border border-slate-900 hover:border-slate-800 transition-all group"
-                            >
-                              <CheckCircle2
-                                size={12}
-                                className="text-indigo-400 group-hover:scale-110 transition-transform"
-                              />
-                              <span className="text-[11px] sm:text-xs text-slate-300 group-hover:text-white transition-colors">
-                                {skill}
-                              </span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="text-[9px] font-mono text-slate-600 border-t border-slate-900 pt-2.5 flex items-center justify-between">
-                        <span>
-                          MODULE: CORE_SKILL_MATRIX_
-                          {selectedCategory.toUpperCase()}
-                        </span>
-                        <span className="text-indigo-400 animate-pulse">
-                          INTEGRITY ONLINE
-                        </span>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="orbit-deck-view"
-                      className="relative w-full h-full flex items-center justify-center"
-                      initial={{ scale: 0.98, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.98, opacity: 0 }}
-                    >
-                      <div className="absolute w-[240px] h-[240px] border border-dashed border-slate-800/25 rounded-full pointer-events-none animate-spin [animation-duration:140s]" />
-                      <div className="absolute w-[320px] h-[320px] border border-slate-900/25 rounded-full pointer-events-none" />
-
-                      <div className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-slate-950 border border-indigo-500/20 flex flex-col items-center justify-center text-center p-2 shadow-2xl">
-                        <div className="absolute inset-0 bg-indigo-500/5 rounded-full blur-md animate-pulse pointer-events-none" />
-
-                        <FuturisticAvatar
-                          activeTheme={activeTheme}
-                          size="w-12 h-12 sm:w-14 sm:h-14"
-                        />
-
-                        <h2 className="text-[10px] sm:text-xs font-black text-white mt-1">
-                          {combinedData.Name}
-                        </h2>
-                        <p className="text-[8px] uppercase tracking-wider text-amber-400 font-mono font-semibold">
-                          {currentRoleData.Title}
-                        </p>
-                      </div>
-
-                      {skillCategories.map((category, idx) => (
-                        <PlanetNode
-                          key={category}
-                          category={category}
-                          categoryInfo={
-                            combinedData["Technical Skills"][category]
-                          }
-                          index={idx}
-                          total={skillCategories.length}
-                          onSelect={handleSelectCategory}
-                          active={selectedCategory === category}
-                          orbitRadius={orbitRadius}
-                        />
-                      ))}
-                    </motion.div>
-                  )}
-                </motion.div>
-              )}
-
-              {activeTab === "constellation" && (
-                <motion.div
-                  key="constellation-deck"
-                  className="w-full h-full overflow-y-auto pr-2 custom-scrollbar"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                >
-                  <ConstellationView activeRole={activeRole} />
-                </motion.div>
-              )}
-
-              {activeTab === "terminal" && (
-                <motion.div
-                  key="terminal-deck"
-                  className="w-full h-full"
-                  initial={{ opacity: 0, scale: 0.99 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.99 }}
-                >
-                  <SpaceTerminal />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Supporting telemetry metrics sidebar column */}
-        <div className="lg:col-span-5 flex flex-col gap-5">
-          <div className="bg-slate-950/60 border border-slate-900 rounded-xl p-3.5 flex flex-col gap-2">
-            <span className="text-[9px] uppercase font-bold tracking-widest text-slate-600">
-              Active Sector Control
+    <div className="bg-[#FAF9FC] text-slate-800 flex flex-col font-sans select-none antialiased min-h-screen w-full relative">
+      
+      {/* SCREEN 1: MINIMAL DIRECT GRID LIST OF PORTFOLIOS */}
+      {!selectedDocId && (
+        <main className="max-w-7xl w-full mx-auto px-4 py-16 flex-grow flex flex-col justify-center animate-fadeIn">
+          
+          <div className="text-center max-w-lg mx-auto mb-12">
+            <span className="text-[10px] font-extrabold tracking-[0.22em] uppercase text-[#6527D0] bg-[#6527D0]/5 px-3 py-1 rounded-full">
+              Enterprise Verified Talents
             </span>
-
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => {
-                  setActiveRole("frontend");
-                  setSelectedCategory(null);
-                }}
-                className={`flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold transition-all border ${activeRole === "frontend" ? "bg-amber-400/10 border-amber-400/40 text-amber-400 shadow-sm shadow-amber-400/5" : "bg-slate-950/50 border-slate-900 text-slate-500 hover:text-slate-300"}`}
-              >
-                <PanelRight size={12} />
-                Frontend Dev
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveRole("backend");
-                  setSelectedCategory(null);
-                }}
-                className={`flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold transition-all border ${activeRole === "backend" ? "bg-purple-400/10 border-purple-400/40 text-purple-400 shadow-sm shadow-purple-400/5" : "bg-slate-950/50 border-slate-900 text-slate-500 hover:text-slate-300"}`}
-              >
-                <Server size={12} />
-                Backend Dev
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-slate-950/40 border border-slate-900 rounded-xl p-5 backdrop-blur-md">
-            <div className="flex items-center gap-2 border-b border-slate-900 pb-2.5 mb-3.5 justify-between">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                <h4 className="text-[10px] uppercase font-extrabold text-slate-500 tracking-wider">
-                  Metrics Monitoring
-                </h4>
-              </div>
-              <span className="text-[9px] font-mono text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">
-                OPERATIONAL
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3.5">
-              {combinedData.Stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="bg-slate-950/50 border border-slate-900 p-2.5 rounded-lg flex flex-col justify-between"
-                >
-                  <span className="text-[9px] text-slate-600 font-mono font-semibold uppercase">
-                    {stat.label}
-                  </span>
-                  <span className="text-xl font-black text-white mt-1 tracking-tight">
-                    {stat.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-r from-indigo-950/15 to-purple-950/15 border border-indigo-950/40 rounded-xl p-4.5 backdrop-blur-md relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/5 rounded-full blur-xl pointer-events-none" />
-
-            <h4 className="text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1.5">
-              <User size={12} className="text-indigo-400" />
-              Mainframe Decodes
-            </h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed mb-3.5">
-              Refactoring digital pipelines to minimize lag coordinates and
-              elevate high lighthouse audit ratings. Connect securely.
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight mt-4">
+              Select Role Wise Portfolio
+            </h2>
+            <p className="text-xs text-slate-500 mt-2 font-light">
+              Choose an engineering candidate to analyze their verified skills page, export documents, and load the dynamic AI chat widget.
             </p>
+          </div>
 
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between text-[11px] bg-slate-950/50 p-2 rounded border border-slate-900 font-mono">
-                <span className="text-slate-600">GEOLOCATION:</span>
-                <span className="text-slate-400 font-semibold">
-                  {combinedData.Contact.Location}
-                </span>
-              </div>
-              <div className="flex items-center justify-between text-[11px] bg-slate-950/50 p-2 rounded border border-slate-900 font-mono">
-                <span className="text-slate-600">COORDINATE LINK:</span>
-                <span
-                  className="text-indigo-400 hover:underline cursor-pointer"
-                  onClick={copyEmailToClipboard}
-                >
-                  {combinedData.Contact.Email}
-                </span>
-              </div>
+          {/* Core White Dashboard Portfolio Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {CANDIDATE_JSON_DATA.map((doc) => (
+              <div 
+                key={doc.id}
+                onClick={() => {
+                  setSelectedDocId(doc.id);
+                  setActivePage(1);
+                  triggerToast("Dossier Initialized", `Opened secure preview workspace for ${doc.name}.`);
+                }}
+                className="group bg-white border border-slate-200/80 p-6 rounded-2xl hover:border-[#6527D0]/50 hover:shadow-[0_8px_24px_rgba(101,39,208,0.06)] transition-all duration-300 relative cursor-pointer flex flex-col justify-between overflow-hidden"
+              >
+                {/* Visual Purple Brand Notch */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#6527D0]" />
 
-              <div className="flex justify-between items-center mt-5">
-                {/* Dynamic theme, coordination switches, and Resume split controllers */}
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center bg-slate-950/80 border border-slate-900 rounded-lg p-1 gap-1">
-                    <span className="text-[9px] uppercase font-bold text-slate-600 px-1.5">
-                    Theme:
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[9px] text-[#6527D0] border border-[#6527D0]/20 px-2 py-0.5 rounded uppercase font-bold tracking-wider bg-[#6527D0]/5">
+                      {doc.category}
                     </span>
-                    {Object.keys(cosmicThemes).map((themeKey) => (
-                      <button
-                        key={themeKey}
-                        onClick={() => setActiveTheme(themeKey)}
-                        className={`px-2.5 py-0.5 rounded text-[10px] transition-all ${activeTheme === themeKey ? "bg-indigo-600 text-white font-semibold" : "hover:bg-slate-900 text-slate-500 hover:text-slate-300"}`}
-                      >
-                        {themeKey === "andromeda"
-                          ? "Violet"
-                          : themeKey === "supernova"
-                            ? "Amber"
-                            : "Cyan"}
-                      </button>
-                    ))}
                   </div>
 
-                  <div className="flex items-center gap-1.5 bg-slate-950/80 border border-slate-900 rounded-lg p-1">
-                    <a
-                      href={`https://${combinedData.LinkedIn}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 hover:bg-slate-900 text-slate-500 hover:text-slate-200 rounded transition"
-                      title="LinkedIn Node"
-                    >
-                      <Linkedin size={14} />
-                    </a>
-                    <a
-                      href={`https://${combinedData.GitHub}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 hover:bg-slate-900 text-slate-500 hover:text-slate-200 rounded transition"
-                      title="GitHub Node"
-                    >
-                      <Github size={14} />
-                    </a>
-                    <button
-                      onClick={copyEmailToClipboard}
-                      className="p-1.5 hover:bg-slate-900 text-slate-500 hover:text-slate-200 rounded transition relative mr-1"
-                      title="Copy transmission IP mail"
-                    >
-                      <Mail size={14} />
-                      {copiedText && (
-                        <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[9px] px-1.5 py-0.5 rounded shadow whitespace-nowrap">
-                          Copied!
-                        </span>
-                      )}
-                    </button>
+                  <div className="flex items-center gap-3 mb-4">
+                    <img 
+                      src={doc.avatar} 
+                      alt={doc.name} 
+                      className="w-12 h-12 rounded-xl object-cover border border-slate-100 shadow-sm"
+                    />
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-900 group-hover:text-[#6527D0] transition-colors duration-200 leading-tight">
+                        {doc.name}
+                      </h4>
+                      <span className="text-[9px] text-slate-400 font-semibold uppercase tracking-wider block mt-0.5">
+                        {doc.role}
+                      </span>
+                    </div>
+                  </div>
 
-                    {/* Futuristic Split Control Key - Check Online OR Direct Download */}
-                    <div className="flex items-center bg-slate-900/60 border border-slate-800 rounded-md p-0.5 overflow-hidden">
-                      <a
-                        href={combinedData.ResumeLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 px-2.5 py-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 text-[9px] font-bold uppercase transition duration-150"
-                        title="View Resume Online (New Window)"
-                      >
-                        <Eye size={10} />
-                        <span>Check</span>
-                      </a>
-                      <span className="w-px h-3 bg-slate-800" />
-                      <a
-                        href={combinedData.ResumeDownload}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 px-2.5 py-1 rounded text-amber-300 hover:text-amber-200 hover:bg-amber-400/10 text-[9px] font-bold uppercase transition duration-150"
-                        title="Download Raw PDF File Payload"
-                      >
-                        <Download size={10} className="animate-pulse" />
-                        <span>Download</span>
-                      </a>
+                  <p className="text-[11px] text-slate-500 leading-relaxed font-light line-clamp-3">
+                    {doc.summary}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#6527D0]">
+                  <span>Analyze Portfolio</span>
+                  <ChevronRight size={13} className="transform group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </main>
+      )}
+
+      {/* SCREEN 2: HIGH-FIDELITY COMPACT WORKSPACE WITH EXPANDED WIDTH */}
+      {selectedDocId && activeDoc && (
+        <main className="max-w-7xl w-full mx-auto px-4 py-4 flex-grow flex flex-col justify-center animate-fadeIn relative">
+          
+          {/* TOP RIGHT ACTION BAR & EXPORTS (Aligned directly above the chat layout) */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => {
+                  setSelectedDocId(null);
+                }}
+                className="text-xs text-slate-600 hover:text-[#6527D0] flex items-center gap-1.5 py-1.5 px-3 bg-slate-50 hover:bg-[#6527D0]/5 rounded-lg border border-slate-200 hover:border-[#6527D0]/20 transition-all font-bold"
+              >
+                <ArrowLeft size={13} />
+                <span>Exit Preview</span>
+              </button>
+              
+              <div className="flex items-center gap-2">
+                <img src={activeDoc.avatar} className="w-8 h-8 rounded-full object-cover border" alt="" />
+                <div>
+                  <h3 className="text-xs font-bold text-slate-900 leading-none">{activeDoc.name}</h3>
+                  <p className="text-[9px] text-[#6527D0] font-mono font-bold mt-0.5 uppercase tracking-wide">{activeDoc.role}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Export Downloads Panel */}
+            <div className="flex items-center gap-1.5 self-end sm:self-auto">
+              <button 
+                onClick={() => handleDownloadFile('pdf', activeDoc)}
+                className="text-[10px] bg-[#6527D0] hover:bg-[#521eb4] text-white px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1 shadow-sm"
+              >
+                <Download size={11} />
+                <span>Download PDF</span>
+              </button>
+
+              <button 
+                onClick={() => handleDownloadFile('txt', activeDoc)}
+                className="text-[10px] bg-slate-50 hover:bg-[#6527D0]/5 text-slate-700 hover:text-[#6527D0] px-3 py-1.5 rounded-lg font-bold border border-slate-200 hover:border-[#6527D0]/20 transition-all flex items-center gap-1"
+              >
+                <Download size={11} />
+                <span>Export TXT</span>
+              </button>
+
+              <button 
+                onClick={() => handleDownloadFile('doc', activeDoc)}
+                className="text-[10px] bg-slate-50 hover:bg-[#6527D0]/5 text-slate-700 hover:text-[#6527D0] px-3 py-1.5 rounded-lg font-bold border border-slate-200 hover:border-[#6527D0]/20 transition-all flex items-center gap-1"
+              >
+                <Download size={11} />
+                <span>Draft DOC</span>
+              </button>
+            </div>
+          </div>
+
+          {/* DETAILED DOUBLE COMPARTMENT SHEET VIEWER (Restrained height optimized for embedding) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-[520px] max-h-[520px] min-h-[520px]">
+            
+            {/* LEFT SIDE CORNER: PDF PREVIEW PANELS (7 Cols) */}
+            <div className="md:col-span-8 bg-white border border-slate-200 rounded-3xl flex flex-col h-full overflow-hidden shadow-sm relative">
+              
+              {/* Visual Navigation Tabs using High-Fidelity Miniatures of Page Images */}
+              <div className="flex gap-2 p-2.5 bg-slate-50 border-b border-slate-200/80">
+                {[1, 2, 3].map((page) => (
+                  <button 
+                    key={page}
+                    onClick={() => setActivePage(page)}
+                    className={`flex-1 py-1.5 px-2 rounded-xl text-[10px] font-extrabold transition-all flex items-center justify-center gap-2 border ${
+                      activePage === page 
+                        ? 'bg-white border-[#6527D0]/40 text-[#6527D0] shadow-sm' 
+                        : 'border-transparent text-slate-400 hover:bg-slate-100 hover:text-slate-600'
+                    }`}
+                  >
+                    {/* Miniature Render Representation of Page Icon */}
+                    <div className={`w-6 h-7 rounded border flex flex-col justify-between p-0.5 overflow-hidden transition-all ${
+                      activePage === page ? 'bg-indigo-50/50 border-[#6527D0]' : 'bg-white border-slate-200'
+                    }`}>
+                      {/* Visual schematic of a page header */}
+                      <div className="h-0.5 w-4 bg-slate-300 rounded" />
+                      <div className="space-y-0.5">
+                        <div className="h-0.5 w-5 bg-slate-200 rounded" />
+                        <div className="h-0.5 w-3 bg-slate-200 rounded" />
+                      </div>
+                      {/* Simulated graphics segment depending on page number */}
+                      {page === 1 && <div className="h-1 w-2 bg-[#6527D0]/40 rounded-full" />}
+                      {page === 2 && <div className="h-1 w-full bg-emerald-500/30 rounded-full" />}
+                      {page === 3 && <div className="h-1.5 w-1.5 bg-amber-500/40 rounded-full self-end" />}
+                    </div>
+
+                    <span className="font-sans">
+                      Page {page} <span className="hidden sm:inline font-normal opacity-70">
+                        {page === 1 && "(Credentials)"}
+                        {page === 2 && "(Career Timeline)"}
+                        {page === 3 && "(Skill Matrix)"}
+                      </span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Core PDF Canvas Workspace displaying High-Fidelity document mockups */}
+              <div className="flex-grow p-6 bg-slate-100/50 overflow-y-auto">
+                <div className="bg-white border border-slate-200 p-8 rounded-2xl min-h-full flex flex-col justify-between shadow-sm relative overflow-hidden">
+                  
+                  {/* Visual Watermark Seal */}
+                  <div className="absolute top-2 right-4 text-[7px] tracking-[0.25em] text-slate-300 font-mono font-bold select-none">
+                    SECURE VERIFIED DOCUMENT RECORD
+                  </div>
+
+                  {/* HIGH-FIDELITY SCHEMATIC PDF PAGE RENDERS */}
+                  
+                  {/* PAGE 1: Corporate Profile Sheet Image */}
+                  {activePage === 1 && (
+                    <div className="space-y-5 animate-fadeIn">
+                      {/* Visual Printed Page Header layout */}
+                      <div className="border-b-2 border-slate-100 pb-5 flex items-start justify-between gap-4">
+                        <div className="flex items-center gap-4">
+                          <img 
+                            src={activeDoc.avatar} 
+                            alt={activeDoc.name} 
+                            className="w-16 h-16 rounded-xl object-cover border-2 border-slate-100 shadow-sm flex-shrink-0"
+                          />
+                          <div>
+                            <h2 className="text-xl font-black text-slate-955 leading-none">{activeDoc.name}</h2>
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-[#6527D0] font-extrabold block mt-1.5">
+                              {activeDoc.role}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        {/* Contact metadata visual array */}
+                        <div className="text-[9px] text-slate-400 font-mono space-y-0.5 text-right hidden sm:block">
+                          <div className="flex items-center justify-end gap-1"><Mail size={9} /> {activeDoc.email}</div>
+                          <div className="flex items-center justify-end gap-1"><Phone size={9} /> {activeDoc.phone}</div>
+                          <div className="flex items-center justify-end gap-1"><MapPin size={9} /> {activeDoc.location}</div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                        <div className="md:col-span-2 space-y-4">
+                          <div>
+                            <h4 className="text-[10px] font-extrabold uppercase text-[#6527D0] tracking-wider mb-2 flex items-center gap-1.5">
+                              <User size={11} /> Executive Profile Summary
+                            </h4>
+                            <p className="text-xs text-slate-600 leading-relaxed font-light">
+                              {activeDoc.summary}
+                            </p>
+                          </div>
+
+                          <div>
+                            <h4 className="text-[10px] font-extrabold uppercase text-[#6527D0] tracking-wider mb-2 flex items-center gap-1.5">
+                              <Layers size={11} /> Architectural Approach
+                            </h4>
+                            <p className="text-xs text-slate-600 leading-relaxed font-light">
+                              Dedicated to designing modular architectures optimized for high-performance and low-latency interaction cycles. Prioritizes accessibility, systematic design tokens, and rigorous integration standards.
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Right Panel Skill Badges Sidebar */}
+                        <div className="space-y-4 border-l border-slate-100 pl-4">
+                          <div>
+                            <h4 className="text-[10px] font-extrabold uppercase text-[#6527D0] tracking-wider mb-2 flex items-center gap-1.5">
+                              <Cpu size={11} /> Core Capabilities
+                            </h4>
+                            <div className="flex flex-col gap-1.5">
+                              {activeDoc.skills.map((skill, index) => (
+                                <div key={index} className="flex items-center gap-1.5 text-[10px] text-slate-600">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#6527D0]" />
+                                  <span>{skill}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* PAGE 2: Professional Timeline Sheet Image */}
+                  {activePage === 2 && (
+                    <div className="space-y-5 animate-fadeIn">
+                      <div className="border-b border-slate-100 pb-3">
+                        <h2 className="text-xs font-extrabold uppercase tracking-widest text-[#6527D0] flex items-center gap-1.5">
+                          <Briefcase size={12} /> Professional Employment Record
+                        </h2>
+                      </div>
+
+                      <div className="relative border-l border-slate-200 pl-5 ml-1.5 space-y-5">
+                        {activeDoc.experience.map((exp, index) => (
+                          <div key={index} className="relative">
+                            {/* Beautiful Visual Node representation */}
+                            <div className="absolute -left-[24px] top-1 w-2.5 h-2.5 rounded-full bg-white border-2 border-[#6527D0] shadow-sm" />
+                            
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                              <span className="text-xs font-bold text-slate-900">{exp.role}</span>
+                              <div className="flex items-center gap-1 text-[9px] text-slate-400 font-mono">
+                                <Clock size={10} />
+                                <span>{exp.duration}</span>
+                              </div>
+                            </div>
+                            
+                            <span className="text-[10px] text-[#6527D0] font-bold block mt-0.5">{exp.company}</span>
+                            <p className="text-[10px] text-slate-500 mt-2 leading-relaxed font-light">{exp.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* PAGE 3: Detailed Technical Skill Assessment Sheet Image */}
+                  {activePage === 3 && (
+                    <div className="space-y-5 animate-fadeIn">
+                      <div className="border-b border-slate-100 pb-3">
+                        <h2 className="text-xs font-extrabold uppercase tracking-widest text-[#6527D0] flex items-center gap-1.5">
+                          <Award size={12} /> Tech Skill Metrics & Certifications
+                        </h2>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {activeDoc.skills.map((skill, index) => {
+                          const score = 94 - index * 6;
+                          return (
+                            <div key={index} className="space-y-1.5 bg-slate-50/50 p-3 rounded-xl border border-slate-100">
+                              <div className="flex items-center justify-between text-[10px]">
+                                <span className="font-bold text-slate-800">{skill}</span>
+                                <span className="font-mono font-bold text-[#6527D0] bg-[#6527D0]/5 px-1.5 py-0.5 rounded">{score}%</span>
+                              </div>
+                              <div className="w-full h-1.5 bg-slate-200/80 rounded-full overflow-hidden">
+                                <div className="h-full bg-[#6527D0] rounded-full" style={{ width: `${score}%` }} />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <div className="bg-indigo-50/30 border border-[#6527D0]/10 p-4 rounded-xl flex items-start gap-3 mt-3">
+                        <Code size={16} className="text-[#6527D0] mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h5 className="text-[11px] font-bold text-slate-850">Dynamic Metadata Lock</h5>
+                          <p className="text-[10px] text-slate-500 font-light mt-0.5 leading-relaxed">
+                            The information displayed in this structural portfolio schema has been dynamically indexed as vector weights inside the AI chatbot context.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Document Sheet Footer */}
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-[9px] text-slate-400 font-mono">
+                    <span>SYSTEM ENCRYPTION CODE: AES-256</span>
+                    <span>PAGE {activePage} OF 3</span>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            {/* RIGHT SIDE CORNER: EMBEDDED DYNAMIC AI CO-PILOT CHATBOT (4 Cols) */}
+            <div className="md:col-span-4 bg-white border border-slate-200 rounded-3xl flex flex-col h-full overflow-hidden shadow-sm relative">
+              
+              {/* Chatbot Header */}
+              <div className="px-4 py-3.5 border-b border-slate-100 bg-white flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#6527D0]/10 flex items-center justify-center text-[#6527D0]">
+                    <Sparkles size={13} />
+                  </div>
+                  <div>
+                    <h3 className="text-[10px] font-extrabold text-slate-900 tracking-wider uppercase font-mono">Hiring Co-Pilot</h3>
+                    <div className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      <span className="text-[8px] text-slate-400 font-mono">
+                        Active Dataset Connected
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Dual-action cybernetic resume control unit block */}
-              <div className="bg-slate-950/75 border border-slate-900/90 rounded-lg p-2.5 mt-2 space-y-2">
-                <div className="flex items-center gap-1.5 border-b border-slate-900 pb-1.5">
-                  <FileText
-                    size={12}
-                    className="text-indigo-400 animate-pulse"
-                  />
-                  <span className="text-slate-400 font-mono text-[9px] font-bold uppercase tracking-wider">
-                    RESUME_CONTROL_UNIT.EXE
-                  </span>
+              {/* Chat Conversation Scroll Area */}
+              <div 
+                ref={chatContainerRef}
+                className="flex-grow p-4 overflow-y-auto space-y-4 bg-slate-50/50"
+              >
+                {/* Simulated AI greeting bubble */}
+                <div className="flex gap-2 items-start">
+                  <div className="w-6 h-6 rounded-lg bg-[#6527D0]/10 border border-[#6527D0]/15 flex items-center justify-center flex-shrink-0 mt-0.5 text-[#6527D0] text-xs font-bold">
+                    A
+                  </div>
+                  <div className="bg-white p-3 rounded-xl rounded-tl-none border border-slate-100 max-w-[85%] shadow-sm">
+                    <p className="text-[11px] text-slate-700 leading-relaxed font-light">
+                      Welcome. I am optimized with <strong className="text-slate-900 font-medium">{activeDoc.name}</strong>'s JSON credential model.
+                    </p>
+                    <p className="text-[11px] text-slate-600 leading-relaxed mt-1 font-light">
+                      Select an analytical suggestion to review details, or type a custom question:
+                    </p>
+
+                    <div className="mt-3 space-y-1">
+                      {activeDoc.suggestedPrompts.map((p, index) => (
+                        <button 
+                          key={index}
+                          disabled={isTyping}
+                          onClick={() => setUserPrompt(p)}
+                          className="w-full text-left text-[10px] bg-slate-50 hover:bg-[#6527D0]/5 text-slate-600 hover:text-[#6527D0] border border-slate-100 hover:border-[#6527D0]/20 p-2 rounded-lg transition-all flex items-start gap-1.5 disabled:opacity-50"
+                        >
+                          <span className="text-[#6527D0] font-bold">•</span>
+                          <span className="leading-tight">{p}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2">
-                  <a
-                    href={combinedData.ResumeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1.5 py-1.5 rounded bg-slate-900 hover:bg-slate-800 text-[10px] font-bold text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition duration-150"
-                  >
-                    <Eye size={11} className="text-indigo-400" />
-                    <span>Check View</span>
-                  </a>
+                {/* Live Conversational bubbles */}
+                {(chatHistories[activeDoc.id] || []).map((msg) => {
+                  const isUser = msg.sender === 'user';
+                  const isPlaceholder = msg.id === typingMessageId && isTyping && !msg.text;
 
-                  <a
-                    href={combinedData.ResumeDownload}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1.5 py-1.5 rounded bg-amber-400/10 hover:bg-amber-400/20 text-[10px] font-bold text-amber-300 hover:text-amber-200 border border-amber-400/30 hover:border-amber-400/60 transition duration-150"
-                  >
-                    <Download
-                      size={11}
-                      className="text-amber-400 animate-bounce"
-                    />
-                    <span>Download</span>
-                  </a>
-                </div>
+                  return (
+                    <div 
+                      key={msg.id} 
+                      className={`flex gap-2 items-start ${isUser ? 'justify-end' : 'justify-start'}`}
+                    >
+                      {!isUser && (
+                        <div className="w-6 h-6 rounded-lg bg-[#6527D0]/10 border border-[#6527D0]/20 text-[#6527D0] flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold">
+                          A
+                        </div>
+                      )}
+
+                      <div className={`p-3 rounded-xl max-w-[82%] shadow-sm border relative ${
+                        isUser 
+                          ? 'bg-[#6527D0] border-[#6527D0]/20 rounded-tr-none text-white' 
+                          : 'bg-white border-slate-100 rounded-tl-none text-slate-800'
+                      }`}>
+                        {isPlaceholder ? (
+                          <div className="flex items-center gap-1 py-1">
+                            <span className="w-1.5 h-1.5 bg-[#6527D0] rounded-full animate-bounce"></span>
+                            <span className="w-1.5 h-1.5 bg-[#6527D0] rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                            <span className="w-1.5 h-1.5 bg-[#6527D0] rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                          </div>
+                        ) : (
+                          <div>
+                            <p className="text-[11px] leading-relaxed whitespace-pre-line font-sans font-light">
+                              {msg.text}
+                              {msg.id === typingMessageId && isTyping && (
+                                <span className="inline-block w-1.5 h-3 bg-[#6527D0] ml-1 animate-pulse align-middle"></span>
+                              )}
+                            </p>
+
+                            {!isUser && (
+                              <div className="mt-2 pt-1.5 border-t border-slate-100 flex items-center justify-between text-[7px] font-mono uppercase tracking-wider text-slate-400">
+                                <span className="text-emerald-600 font-bold flex items-center gap-0.5">
+                                  <Check size={8} /> Sync Guard
+                                </span>
+                                <span>{msg.timestamp}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {isUser && (
+                        <div className="w-6 h-6 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center flex-shrink-0 mt-0.5 text-[8px] text-slate-500 font-mono font-bold">
+                          U
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            </div>
-          </div>
-        </div>
-      </main>
 
-      <footer className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 pt-10 border-t border-slate-900 mt-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-slate-600 font-mono">
-        <div>
-          <span>// MAIN DECK SYS: </span>
-          <span className="text-slate-400">ADITYA PATIL PORTFOLIO v5.3</span>
+              {/* Message Entry Area */}
+              <div className="p-3 bg-white border-t border-slate-100">
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    processAIQuery(userPrompt);
+                  }}
+                  className="relative flex items-center"
+                >
+                  <input 
+                    type="text"
+                    value={userPrompt}
+                    disabled={isTyping}
+                    onChange={(e) => setUserPrompt(e.target.value)}
+                    placeholder={isTyping ? "Replying..." : "Ask questions about candidate JSON..."}
+                    className="w-full bg-slate-50 border border-slate-200 hover:border-[#6527D0]/30 rounded-xl py-2 pl-3.5 pr-10 text-[11px] text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#6527D0] focus:ring-1 focus:ring-[#6527D0] transition-all disabled:opacity-60"
+                    autoComplete="off"
+                  />
+                  <button 
+                    type="submit"
+                    disabled={isTyping || !userPrompt.trim()}
+                    className="absolute right-1.5 w-7 h-7 rounded-lg bg-[#6527D0] hover:bg-[#521eb4] text-white transition-colors flex items-center justify-center disabled:opacity-30 shadow-sm"
+                  >
+                    <Send size={11} />
+                  </button>
+                </form>
+              </div>
+
+            </div>
+
+          </div>
+
+        </main>
+      )}
+
+      {/* Embedded Telemetry Toast alerts */}
+      <div 
+        className={`fixed bottom-4 left-4 z-50 transform transition-all duration-300 pointer-events-none flex items-center gap-2.5 bg-white border-l-4 ${toast.isAlert ? 'border-rose-500 shadow-md' : 'border-[#6527D0] shadow-md'} p-3.5 rounded-r-lg max-w-xs ${
+          toast.visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}
+      >
+        <div className={toast.isAlert ? 'text-rose-500' : 'text-[#6527D0]'}>
+          <FileText size={16} />
         </div>
         <div>
-          <span>COSMIC SHADERS ONLINE // PUNE, INDIA</span>
+          <h4 className="text-[10px] font-bold text-slate-950 uppercase tracking-wider leading-none">
+            {toast.title}
+          </h4>
+          <p className="text-[10px] text-slate-500 mt-1 leading-tight font-light">
+            {toast.message}
+          </p>
         </div>
-      </footer>
+      </div>
+
+      {/* Embedded CSS Animations */}
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(4px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out forwards;
+        }
+      `}</style>
+
     </div>
   );
 }

@@ -240,7 +240,7 @@ const BRAND_ICONS = {
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -262,7 +262,7 @@ const BRAND_ICONS = {
   ),
   nodejs: (
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -305,7 +305,7 @@ const BRAND_ICONS = {
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -357,7 +357,7 @@ const BRAND_ICONS = {
       xmlns:xlink="http://www.w3.org/1999/xlink"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -370,7 +370,7 @@ const BRAND_ICONS = {
         <g
           id="databases-and-servers/databases/mysql"
           stroke="none"
-          stroke-width="1"
+          strokeWidth="1"
           fill="none"
           fill-rule="evenodd"
         >
@@ -381,7 +381,7 @@ const BRAND_ICONS = {
             fill="#FFFFFF"
             fill-rule="nonzero"
             stroke="#013247"
-            stroke-width="2"
+            strokeWidth="2"
           >
             {" "}
             <rect id="mask" x="-1" y="-1" width="71" height="71" rx="14">
@@ -423,7 +423,7 @@ const BRAND_ICONS = {
   ),
   oracle: (
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -441,7 +441,7 @@ const BRAND_ICONS = {
   ),
   docker: (
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -475,7 +475,7 @@ const BRAND_ICONS = {
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -620,7 +620,7 @@ const BRAND_ICONS = {
   ),
   aws: (
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -642,7 +642,7 @@ const BRAND_ICONS = {
   ),
   git: (
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -684,7 +684,7 @@ const BRAND_ICONS = {
       role="img"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -698,7 +698,7 @@ const BRAND_ICONS = {
   ),
   slack: (
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -758,7 +758,7 @@ const BRAND_ICONS = {
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -847,7 +847,7 @@ const BRAND_ICONS = {
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -918,7 +918,7 @@ const BRAND_ICONS = {
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -948,7 +948,7 @@ const BRAND_ICONS = {
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -1145,7 +1145,7 @@ const BRAND_ICONS = {
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"
@@ -1185,7 +1185,7 @@ const BRAND_ICONS = {
   ),
   gitlab: (
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         stroke-linecap="round"

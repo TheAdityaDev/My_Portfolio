@@ -43,6 +43,13 @@ const Header = () => {
       anchor: '#resume',
       icon: 'File',
       tooltip: 'Check the Resume'
+    },
+    { 
+      label: 'Achievements', 
+      path: '/achievements', 
+      anchor: '#achievements',
+      icon: 'BadgeCheck',
+      tooltip: 'Check the Achievements'
     }
   ];
 

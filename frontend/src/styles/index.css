@@ -11,3 +11,12 @@ body {
   font-family: inherit;
   margin: unset;
 }
+
+
+body::-webkit-scrollbar{
+  display: none;
+}
+
+body::-webkit-scrollbar-corner{
+  display: none;
+}
