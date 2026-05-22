@@ -17,10 +17,14 @@ app.use(
     origin: process.env.CORS_ORIGIN,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  connectDB();
+}, next());
 
 // frontend static files - serve from frontend/dist
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -40,9 +44,6 @@ app.get("*", (req, res) => {
 });
 
 // DB connect
-connectDB();
 
 // server start
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+module.exports = app;
