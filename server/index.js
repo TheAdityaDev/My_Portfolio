@@ -36,7 +36,7 @@ app.get("/api", (req, res) => {
 
 // React Router Fix 🔥
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 // DB connect
