@@ -22,8 +22,8 @@ app.use(
 
 app.use(express.json());
 
-// frontend static files
-app.use(express.static(path.join(__dirname, "dist")));
+// frontend static files - serve from frontend/dist
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 // API routes
 app.use("/api/projects", projectRoutes);
@@ -36,7 +36,7 @@ app.get("/api", (req, res) => {
 
 // React Router Fix 🔥
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
 });
 
 // DB connect
