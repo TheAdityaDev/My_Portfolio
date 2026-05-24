@@ -3,19 +3,21 @@
   "buildCommand": "cd frontend && npm install && npm run build",
   "builds": [
     {
-      "src": "server/index.js",
+      "src": "backend/index.js",
       "use": "@vercel/node",
-      "config": { "includeFiles": "frontend/dist/**" }
+      "config": {
+        "includeFiles": "frontend/dist/**"
+      }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server/index.js"
+      "dest": "backend/index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "server/index.js"
+      "dest": "backend/index.js"
     }
   ]
 }
