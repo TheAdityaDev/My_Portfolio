@@ -10,10 +10,17 @@ export default defineConfig({
     outDir: "dist",
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom", "react-router-dom"],
-          charts: ["recharts", "d3"],
-          utils: ["axios", "date-fns", "framer-motion"]
+        manualChunks(id) {
+          // Vendor code splitting
+          if (id.includes('node_modules')) {
+            if (id.includes('recharts') || id.includes('d3')) {
+              return 'charts';
+            }
+            if (id.includes('react') || id.includes('react-router')) {
+              return 'vendor';
+            }
+            return 'vendor';
+          }
         }
       }
     }
@@ -35,7 +42,6 @@ export default defineConfig({
       "@reduxjs/toolkit",
       "redux",
       "react-snowfall"
-    ],
-    exclude: ["frontend/dist"]
+    ]
   }
 });

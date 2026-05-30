@@ -63,21 +63,6 @@
 
   <body>
     <div id="root"></div>
-    <script>
-      // Polyfill for CommonJS in browser environment
-      if (typeof exports === "undefined") {
-        window.exports = {};
-      }
-      if (typeof module === "undefined") {
-        window.module = { exports: {} };
-      }
-      if (typeof require === "undefined") {
-        window.require = function(id) {
-          console.warn("require() called for:", id);
-          return {};
-        };
-      }
-    </script>
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
