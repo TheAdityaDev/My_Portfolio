@@ -7,6 +7,22 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
 
   build: {
-    outDir: "dist"
+    outDir: "dist",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom"],
+          charts: ["recharts", "d3"]
+        }
+      }
+    }
+  },
+
+  ssr: {
+    noExternal: ["recharts", "d3"]
+  },
+
+  optimizeDeps: {
+    include: ["recharts", "d3", "react", "react-dom"]
   }
 });
