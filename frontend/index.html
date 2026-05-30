@@ -63,6 +63,33 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      // Global CommonJS compatibility polyfills
+      // These must be set up BEFORE module loading
+      const mockExports = {};
+      const mockModule = { exports: mockExports };
+      
+      Object.defineProperty(window, 'exports', {
+        writable: true,
+        value: mockExports,
+        configurable: true
+      });
+      
+      Object.defineProperty(window, 'module', {
+        writable: true,
+        value: mockModule,
+        configurable: true
+      });
+      
+      Object.defineProperty(window, 'require', {
+        writable: true,
+        value: function(id) {
+          console.warn('[Polyfill] require() called for:', id);
+          return {};
+        },
+        configurable: true
+      });
+    </script>
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>

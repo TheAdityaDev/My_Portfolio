@@ -59,12 +59,38 @@
       gtag('js', new Date());
       gtag('config', 'G-49QH31QPY2');
     </script>
-    <script type="module" crossorigin src="/assets/index-BqzecluF.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-BLMkPNrG.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-CqEBFrmL.css">
+    <script type="module" crossorigin src="/assets/index-BTjfojsk.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BR2Rbpqr.css">
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
+    <script>
+      // Global CommonJS compatibility polyfills
+      // These must be set up BEFORE module loading
+      const mockExports = {};
+      const mockModule = { exports: mockExports };
+      
+      Object.defineProperty(window, 'exports', {
+        writable: true,
+        value: mockExports,
+        configurable: true
+      });
+      
+      Object.defineProperty(window, 'module', {
+        writable: true,
+        value: mockModule,
+        configurable: true
+      });
+      
+      Object.defineProperty(window, 'require', {
+        writable: true,
+        value: function(id) {
+          console.warn('[Polyfill] require() called for:', id);
+          return {};
+        },
+        configurable: true
+      });
+    </script>
   </body>
 </html>

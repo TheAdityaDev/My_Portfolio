@@ -8,22 +8,7 @@ export default defineConfig({
 
   build: {
     outDir: "dist",
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          // Vendor code splitting
-          if (id.includes('node_modules')) {
-            if (id.includes('recharts') || id.includes('d3')) {
-              return 'charts';
-            }
-            if (id.includes('react') || id.includes('react-router')) {
-              return 'vendor';
-            }
-            return 'vendor';
-          }
-        }
-      }
-    }
+    target: 'esnext'
   },
 
   optimizeDeps: {
