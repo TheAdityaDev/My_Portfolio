@@ -1,3 +1,8 @@
+// Polyfill for CommonJS exports in browser environment
+if (typeof exports === "undefined") {
+  window.exports = {};
+}
+
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
