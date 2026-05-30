@@ -6,16 +6,18 @@ const connectDB = async () => {
     const uri = process.env.MONGODB_URI;
     
     if (!uri) {
-      throw new Error("MONGODB_URI missing in .env");
+      console.warn("MONGODB_URI missing in .env - running in offline mode");
+      return false;
     }
 
     await mongoose.connect(uri);
-
     console.log("MongoDB connected successfully");
+    return true;
   } catch (error) {
     console.error("MongoDB connection failed:");
     console.error(error.message);
-    process.exit(1);
+    console.warn("Continuing without database...");
+    return false;
   }
 };
 
