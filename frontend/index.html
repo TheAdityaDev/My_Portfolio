@@ -63,6 +63,15 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      // Polyfill for CommonJS exports in browser environment
+      if (typeof exports === "undefined") {
+        window.exports = {};
+      }
+      if (typeof module === "undefined") {
+        window.module = { exports: {} };
+      }
+    </script>
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
