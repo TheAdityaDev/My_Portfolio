@@ -12,17 +12,30 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ["react", "react-dom", "react-router-dom"],
-          charts: ["recharts", "d3"]
+          charts: ["recharts", "d3"],
+          utils: ["axios", "date-fns", "framer-motion"]
         }
       }
     }
   },
 
-  ssr: {
-    noExternal: ["recharts", "d3"]
-  },
-
   optimizeDeps: {
-    include: ["recharts", "d3", "react", "react-dom"]
+    include: [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "recharts",
+      "d3",
+      "axios",
+      "date-fns",
+      "framer-motion",
+      "lucide-react",
+      "react-helmet",
+      "react-hook-form",
+      "@reduxjs/toolkit",
+      "redux",
+      "react-snowfall"
+    ],
+    exclude: ["frontend/dist"]
   }
 });
