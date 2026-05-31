@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 connectDB().catch(err => console.error("DB connection error:", err));
 
 // frontend static files - serve from frontend/dist
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.use(express.static(path.join(__dirname, "./public")));
 
 // API routes
 app.use("/api/projects", projectRoutes);
@@ -40,7 +40,7 @@ app.get("/api", (req, res) => {
 
 // React Router Fix 🔥
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 // Server Start
