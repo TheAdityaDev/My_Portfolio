@@ -42,8 +42,8 @@ app.get("/api", (req, res) => {
   res.json({ message: "API Running 🚀" });
 });
 
-// React Router Fix 🔥
-app.get("*", (req, res) => {
+// React Router Fix 🔥 - Catch-all route for SPA
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
