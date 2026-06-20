@@ -43,9 +43,9 @@ app.get("/api", (req, res) => {
 });
 
 // React Router Fix 🔥 - Catch-all route for SPA
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-// });
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
 
 // Global error handler - PREVENTS CRASHES
 app.use((err, req, res, next) => {
