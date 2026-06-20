@@ -236,19 +236,19 @@ const BRAND_ICONS = {
       viewBox="-16 0 288 288"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
-        <g fill-rule="evenodd">
+        <g fillRule="evenodd">
           {" "}
           <path
             d="M152.575995,32.9634453 L211.722058,67.1124427 C213.387503,65.348329 215.332859,63.7907081 217.539734,62.5088708 C229.806457,55.4573413 245.452038,59.6441869 252.577021,71.9109101 C259.62855,84.1776333 255.441705,99.8232143 243.174982,106.948197 C240.984974,108.207124 238.684929,109.10784 236.343812,109.66832 L236.343812,177.99302 C238.659582,178.554683 240.934429,179.449686 243.101528,180.695443 C255.441705,187.820426 259.62855,203.466007 252.503568,215.73273 C245.452038,227.999453 229.733004,232.186299 217.46628,225.13477 C215.024105,223.730884 212.902189,221.983449 211.125456,219.988103 L152.340162,253.928803 C153.180519,256.46808 153.635248,259.18431 153.635248,262.008393 C153.635248,276.111452 142.176512,287.64364 128,287.64364 C113.823488,287.64364 102.364752,276.184905 102.364752,262.008393 C102.364752,259.488481 102.726802,257.054441 103.40181,254.755362 L44.2714887,220.615454 C42.6238257,222.34493 40.705394,223.873378 38.5337196,225.13477 C26.193543,232.186299 10.547962,227.999453 3.49643248,215.73273 C-3.55509701,203.466007 0.631748621,187.820426 12.8984718,180.695443 C15.0673397,179.448669 17.3418356,178.553222 19.6561876,177.991646 L19.6561876,109.66832 C17.3150714,109.10784 15.0150257,108.207124 12.8250184,106.948197 C0.558295189,99.8966677 -3.62855044,84.1776333 3.42297904,71.9109101 C10.4745085,59.6441869 26.193543,55.4573413 38.4602662,62.5088708 C40.6551374,63.7837361 42.5913269,65.3313931 44.2507413,67.0836756 L103.41276,32.9254664 C102.730718,30.6154532 102.364752,28.1687503 102.364752,25.6352478 C102.364752,11.4587354 113.823488,0 128,0 C142.176512,0 153.635248,11.4587354 153.635248,25.6352478 C153.635248,28.1826393 153.265258,30.6422768 152.575995,32.9634453 Z M146.413638,43.4848713 L205.700555,77.715193 C203.867899,84.1516888 204.540515,91.2885638 208.137694,97.5461579 C211.746601,103.824151 217.625783,107.985785 224.150543,109.607654 L224.150543,178.017842 C223.818032,178.099463 223.48718,178.187674 223.158201,178.282419 L145.72529,44.1686182 C145.959017,43.9450469 146.18851,43.7170876 146.413638,43.4848713 Z M110.29093,44.1841203 L32.8593279,178.295656 C32.524559,178.19844 32.1878611,178.108015 31.8494573,178.024438 L31.8494573,109.607654 C38.3742168,107.985785 44.2533992,103.824151 47.8623055,97.5461579 C51.466599,91.276189 52.1347497,84.1234583 50.2885426,77.6770157 L109.558747,43.4563434 C109.797913,43.7038019 110.042027,43.9464469 110.29093,44.1841203 Z M135.162749,50.259763 L212.576817,184.340928 C210.844241,185.99279 209.317376,187.91755 208.064241,190.097482 C206.818484,192.264581 205.923481,194.539429 205.361818,196.855198 L50.6395564,196.855198 C50.0779798,194.540846 49.1825333,192.26635 47.9357589,190.097482 C46.6776713,187.931497 45.1539248,186.017428 43.4300297,184.372667 L120.858821,50.2659993 C123.124941,50.9200822 125.520915,51.2704957 128,51.2704957 C130.486952,51.2704957 132.890265,50.9178547 135.162749,50.259763 Z M146.958084,244.737995 L205.860107,210.729899 C205.683398,210.174924 205.525483,209.614096 205.38664,209.048468 L50.6067643,209.048468 C50.5246888,209.380792 50.4360084,209.711472 50.3407792,210.040295 L109.531782,244.215239 C114.192298,239.378545 120.739739,236.373145 128,236.373145 C135.518379,236.373145 142.272352,239.596041 146.958084,244.737995 Z"
@@ -265,8 +265,8 @@ const BRAND_ICONS = {
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -301,15 +301,15 @@ const BRAND_ICONS = {
       viewBox="-4 0 264 264"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -354,14 +354,14 @@ const BRAND_ICONS = {
       viewBox="0 0 73 73"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -372,14 +372,14 @@ const BRAND_ICONS = {
           stroke="none"
           strokeWidth="1"
           fill="none"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         >
           {" "}
           <g
             id="container"
             transform="translate(2.000000, 2.000000)"
             fill="#FFFFFF"
-            fill-rule="nonzero"
+            fillRule="nonzero"
             stroke="#013247"
             strokeWidth="2"
           >
@@ -397,7 +397,7 @@ const BRAND_ICONS = {
             <g
               id="Group"
               transform="translate(0.786008, 0.109629)"
-              fill-rule="nonzero"
+              fillRule="nonzero"
             >
               {" "}
               <path
@@ -426,15 +426,15 @@ const BRAND_ICONS = {
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         <path
           fill="#EA1B22"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M.1 8c0 2.761 2.237 5 4.997 5h5.806A4.999 4.999 0 0015.9 8c0-2.761-2.237-5-4.997-5H5.097A4.999 4.999 0 00.1 8zm13.911 0a3.235 3.235 0 01-3.234 3.237h-5.55A3.235 3.235 0 011.991 8a3.235 3.235 0 013.234-3.236h5.551A3.235 3.235 0 0114.011 8z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         ></path>
       </g>
     </svg>
@@ -444,8 +444,8 @@ const BRAND_ICONS = {
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -471,15 +471,15 @@ const BRAND_ICONS = {
       viewBox="0 0 256 256"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -623,8 +623,8 @@ const BRAND_ICONS = {
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -632,7 +632,7 @@ const BRAND_ICONS = {
           fill="#252F3E"
           d="M4.51 7.687c0 .197.02.357.058.475.042.117.096.245.17.384a.233.233 0 01.037.123c0 .053-.032.107-.1.16l-.336.224a.255.255 0 01-.138.048c-.054 0-.107-.026-.16-.074a1.652 1.652 0 01-.192-.251 4.137 4.137 0 01-.165-.315c-.415.491-.936.737-1.564.737-.447 0-.804-.129-1.064-.385-.261-.256-.394-.598-.394-1.025 0-.454.16-.822.484-1.1.325-.278.756-.416 1.304-.416.18 0 .367.016.564.042.197.027.4.07.612.118v-.39c0-.406-.085-.689-.25-.854-.17-.166-.458-.246-.868-.246-.186 0-.377.022-.574.07a4.23 4.23 0 00-.575.181 1.525 1.525 0 01-.186.07.326.326 0 01-.085.016c-.075 0-.112-.054-.112-.166v-.262c0-.085.01-.15.037-.186a.399.399 0 01.15-.113c.185-.096.409-.176.67-.24.26-.07.537-.101.83-.101.633 0 1.096.144 1.394.432.293.288.442.726.442 1.314v1.73h.01zm-2.161.811c.175 0 .356-.032.548-.096.191-.064.362-.182.505-.342a.848.848 0 00.181-.341c.032-.129.054-.283.054-.465V7.03a4.43 4.43 0 00-.49-.09 3.996 3.996 0 00-.5-.033c-.357 0-.618.07-.793.214-.176.144-.26.347-.26.614 0 .25.063.437.196.566.128.133.314.197.559.197zm4.273.577c-.096 0-.16-.016-.202-.054-.043-.032-.08-.106-.112-.208l-1.25-4.127a.938.938 0 01-.049-.214c0-.085.043-.133.128-.133h.522c.1 0 .17.016.207.053.043.032.075.107.107.208l.894 3.535.83-3.535c.026-.106.058-.176.1-.208a.365.365 0 01.214-.053h.425c.102 0 .17.016.213.053.043.032.08.107.101.208l.841 3.578.92-3.578a.458.458 0 01.107-.208.346.346 0 01.208-.053h.495c.085 0 .133.043.133.133 0 .027-.006.054-.01.086a.76.76 0 01-.038.133l-1.283 4.127c-.032.107-.069.177-.111.209a.34.34 0 01-.203.053h-.457c-.101 0-.17-.016-.213-.053-.043-.038-.08-.107-.101-.214L8.213 5.37l-.82 3.439c-.026.107-.058.176-.1.213-.043.038-.118.054-.213.054h-.458zm6.838.144a3.51 3.51 0 01-.82-.096c-.266-.064-.473-.134-.612-.214-.085-.048-.143-.101-.165-.15a.378.378 0 01-.031-.149v-.272c0-.112.042-.166.122-.166a.3.3 0 01.096.016c.032.011.08.032.133.054.18.08.378.144.585.187.213.042.42.064.633.064.336 0 .596-.059.777-.176a.575.575 0 00.277-.508.52.52 0 00-.144-.373c-.095-.102-.276-.193-.537-.278l-.772-.24c-.388-.123-.676-.305-.851-.545a1.275 1.275 0 01-.266-.774c0-.224.048-.422.143-.593.096-.17.224-.32.384-.438.16-.122.34-.213.553-.277.213-.064.436-.091.67-.091.118 0 .24.005.357.021.122.016.234.038.346.06.106.026.208.052.303.085.096.032.17.064.224.096a.46.46 0 01.16.133.289.289 0 01.047.176v.251c0 .112-.042.171-.122.171a.552.552 0 01-.202-.064 2.427 2.427 0 00-1.022-.208c-.303 0-.543.048-.708.15-.165.1-.25.256-.25.475 0 .149.053.277.16.379.106.101.303.202.585.293l.756.24c.383.123.66.294.825.513.165.219.244.47.244.748 0 .23-.047.437-.138.619a1.436 1.436 0 01-.388.47c-.165.133-.362.23-.591.299-.24.075-.49.112-.761.112z"
         ></path>{" "}
-        <g fill="#F90" fill-rule="evenodd" clip-rule="evenodd">
+        <g fill="#F90" fillRule="evenodd" clipRule="evenodd">
           {" "}
           <path d="M14.465 11.813c-1.75 1.297-4.294 1.986-6.481 1.986-3.065 0-5.827-1.137-7.913-3.027-.165-.15-.016-.353.18-.235 2.257 1.313 5.04 2.109 7.92 2.109 1.941 0 4.075-.406 6.039-1.239.293-.133.543.192.255.406z"></path>{" "}
           <path d="M15.194 10.98c-.223-.287-1.479-.138-2.048-.069-.17.022-.197-.128-.043-.24 1-.705 2.645-.502 2.836-.267.192.24-.053 1.89-.99 2.68-.143.123-.281.06-.218-.1.213-.53.687-1.72.463-2.003z"></path>{" "}
@@ -645,8 +645,8 @@ const BRAND_ICONS = {
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -687,8 +687,8 @@ const BRAND_ICONS = {
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         <title>OpenAI icon</title>
@@ -701,8 +701,8 @@ const BRAND_ICONS = {
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -754,15 +754,15 @@ const BRAND_ICONS = {
       viewBox="0 -18 256 256"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -843,15 +843,15 @@ const BRAND_ICONS = {
       viewBox="-16.5 0 289 289"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -914,15 +914,15 @@ const BRAND_ICONS = {
       viewBox="0 -44 256 256"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -931,7 +931,7 @@ const BRAND_ICONS = {
           <path
             d="M207.998979,111.999271 C207.998979,122.608868 202.410682,127.807501 191.999417,127.991833 L191.999417,127.998833 L64.0005833,127.998833 L64.0005833,127.991833 C53.5893178,127.807501 48.0010208,122.608868 48.0010208,111.999271 C48.0010208,101.392007 53.5893178,96.1910404 64.0005833,96.0090416 L64.0005833,95.9997083 L191.999417,95.9997083 L191.999417,96.0090416 C202.410682,96.1910404 207.998979,101.392007 207.998979,111.999271 M191.999417,136.009115 L191.999417,135.999781 L64.0005833,135.999781 L64.0005833,136.009115 C53.5893178,136.191113 48.0010208,141.392079 48.0010208,152.001677 C48.0010208,162.611275 53.5893178,167.807574 64.0005833,167.991906 L64.0005833,167.998906 L191.999417,167.998906 L191.999417,167.989573 C202.410682,167.807574 207.998979,162.608941 207.998979,151.999344 C207.998979,141.389746 202.410682,136.191113 191.999417,136.009115 M231.99949,48.0173541 L231.99949,48.0080208 C221.588224,48.1923529 215.999927,53.3909857 215.999927,64.0005833 L215.999927,151.999344 C215.999927,162.608941 221.588224,167.805241 231.99949,167.989573 L231.99949,167.97324 C247.616388,167.42491 256,151.826678 256,120.000219 L256,80.0001458 C256,58.783284 247.616388,48.3860183 231.99949,48.0173541 M24.0005104,48.0080208 L24.0005104,48.0173541 C8.38361209,48.3860183 0,58.783284 0,80.0001458 L0,120.000219 C0,151.826678 8.38361209,167.422577 24.0005104,167.97324 L24.0005104,167.989573 C34.411776,167.807574 40.0000729,162.608941 40.0000729,151.999344 L40.0000729,64.0005833 C40.0000729,53.3909857 34.411776,48.1923529 24.0005104,48.0080208 M231.99949,40.0000729 C231.99949,13.4772456 218.027581,0.480663537 191.999417,0.0209998633 L191.999417,0 L64.0005833,0 L64.0005833,0.0209998633 C37.9747528,0.480663537 24.0005104,13.4772456 24.0005104,40.0000729 L24.0005104,40.0140728 C39.6174087,40.2894044 48.0010208,48.0873536 48.0010208,64.0005833 C48.0010208,79.9138131 56.3846329,87.7117623 72.0015312,87.9870938 L72.0015312,87.9987604 L184.000802,87.9987604 L184.000802,87.9870938 C199.615367,87.7117623 207.998979,79.9138131 207.998979,64.0005833 C207.998979,48.0873536 216.382591,40.2894044 231.99949,40.0140728 L231.99949,40.0000729 Z"
             fill="#E42528"
-            fill-rule="nonzero"
+            fillRule="nonzero"
           >
             {" "}
           </path>{" "}
@@ -944,15 +944,15 @@ const BRAND_ICONS = {
       viewBox="-47.5 0 351 351"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -1065,14 +1065,14 @@ const BRAND_ICONS = {
           </path>{" "}
           <g>
             {" "}
-            <use fill="#FFA712" fill-rule="evenodd" xlink:href="#path-1">
+            <use fill="#FFA712" fillRule="evenodd" xlinkHref="#path-1">
               {" "}
             </use>{" "}
             <use
               fill="#000000"
               fillOpacity="1"
               filter="url(#filter-2)"
-              xlink:href="#path-1"
+              xlinkHref="#path-1"
             >
               {" "}
             </use>{" "}
@@ -1085,14 +1085,14 @@ const BRAND_ICONS = {
           </path>{" "}
           <g>
             {" "}
-            <use fill="#FFA50E" fill-rule="evenodd" xlink:href="#path-3">
+            <use fill="#FFA50E" fillRule="evenodd" xlinkHref="#path-3">
               {" "}
             </use>{" "}
             <use
               fill="#000000"
               fillOpacity="1"
               filter="url(#filter-4)"
-              xlink:href="#path-3"
+              xlinkHref="#path-3"
             >
               {" "}
             </use>{" "}
@@ -1141,15 +1141,15 @@ const BRAND_ICONS = {
       viewBox="0 -25 256 256"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       preserveAspectRatio="xMidYMid"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -1188,8 +1188,8 @@ const BRAND_ICONS = {
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         <path
